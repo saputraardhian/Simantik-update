@@ -193,6 +193,90 @@ if (defined('ENVIRONMENT'))
 
 /*
  * --------------------------------------------------------------------
+ * PHP 8+ COMPATIBILITY / MYSQL EXTENSION POLYFILL
+ * --------------------------------------------------------------------
+ */
+if (!function_exists('mysql_connect')) {
+	global $ci_mysqli_link;
+	$ci_mysqli_link = null;
+
+	function get_ci_mysqli() {
+		global $ci_mysqli_link;
+		if (function_exists('get_instance')) {
+			$ci = &get_instance();
+			if (isset($ci->db) && isset($ci->db->conn_id) && is_object($ci->db->conn_id)) {
+				return $ci->db->conn_id;
+			}
+		}
+		if (!$ci_mysqli_link) {
+			$ci_mysqli_link = @mysqli_connect('localhost', 'root', '', 'simantik');
+		}
+		return $ci_mysqli_link;
+	}
+
+	function mysql_connect($server = 'localhost', $username = 'root', $password = '', $new_link = false, $client_flags = 0) {
+		global $ci_mysqli_link;
+		$ci_mysqli_link = @mysqli_connect($server, $username, $password, 'simantik');
+		return $ci_mysqli_link;
+	}
+
+	function mysql_select_db($database_name, $link = null) {
+		$conn = $link ?: get_ci_mysqli();
+		return $conn ? @mysqli_select_db($conn, $database_name) : false;
+	}
+
+	function mysql_query($query, $link = null) {
+		$conn = $link ?: get_ci_mysqli();
+		if (!$conn) return false;
+		return @mysqli_query($conn, $query);
+	}
+
+	function mysql_fetch_array($result, $result_type = MYSQLI_BOTH) {
+		if (!$result || !is_object($result)) return false;
+		return @mysqli_fetch_array($result, $result_type);
+	}
+
+	function mysql_fetch_assoc($result) {
+		if (!$result || !is_object($result)) return false;
+		return @mysqli_fetch_assoc($result);
+	}
+
+	function mysql_fetch_row($result) {
+		if (!$result || !is_object($result)) return false;
+		return @mysqli_fetch_row($result);
+	}
+
+	function mysql_real_escape_string($unescaped_string, $link = null) {
+		if ($unescaped_string === null) return '';
+		$conn = $link ?: get_ci_mysqli();
+		if (!$conn) {
+			return addslashes((string)$unescaped_string);
+		}
+		return mysqli_real_escape_string($conn, (string)$unescaped_string);
+	}
+
+	function mysql_num_rows($result) {
+		if (!$result || !is_object($result)) return 0;
+		return mysqli_num_rows($result);
+	}
+
+	function mysql_insert_id($link = null) {
+		$conn = $link ?: get_ci_mysqli();
+		return $conn ? mysqli_insert_id($conn) : 0;
+	}
+
+	function mysql_error($link = null) {
+		$conn = $link ?: get_ci_mysqli();
+		return $conn ? mysqli_error($conn) : '';
+	}
+
+	function mysql_close($link = null) {
+		return true;
+	}
+}
+
+/*
+ * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
  * --------------------------------------------------------------------
  *

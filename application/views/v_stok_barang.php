@@ -1,271 +1,369 @@
-<div class="row col-md-12">
-  <div class="panel panel-info">
-    <div class="panel-heading">Transaksi Update Stok Barang
-      <div class="tombol-kanan">
-	    <a class="btn btn-warning btn-sm tombol-kanan" href="#" onclick="return m_barang_stok_new();"><i class="glyphicon glyphicon-plus"></i> &nbsp;&nbsp;Tambah Stok Barang</a>
-       </div>
-    </div>
-    <div class="panel-body">
-
-
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th width="5%">No</th>
-			<th width="10%">Kode Penerimaan</th>
-			<th width="15%">Kode Barang</th>
-            <th width="30%">Nama Barang</th>
-            <th width="10%">Jumlah Penerimaan</th>
-			<th width="15%">Sumber Penerimaan</th>
-            <th width="25%">Aksi</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <?php 
-            if (!empty($data)) {
-              $no = 1;
-              foreach ($data as $d) {
-                echo '<tr>
-                      <td class="ctr">'.$no.'</td>
-					  <td class="ctr">'.$d->id_penerimaan.'</td>
-					  <td>'.$d->kode_jenisbarang.' '.$d->kode_subjenisbarang.'</td>
-                      <td>'.$d->nama_barang.'</td>
-                      <td class="ctr">'.$d->jumlah_penerimaan.'</td>
-					  <td class="ctr">'.$d->sumber_penerimaan.'</td>
-                      <td class="">
-                        <div class="btn-group">
-                          <a href="#" onclick="return m_stokbarang_e('.$d->id.');" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Edit</a>
-                          <a href="#" onclick="return m_stokbarang_h('.$d->id.');" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Hapus</a>
-                  
-                          ';
-              //  <a href="#" onclick="return m_siswa_matkul('.$d->id.');" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-th-list" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Mata Kuliah</a>
-
-			//  if ($d->ada == "0") {
-                //  echo '        <a href="#" onclick="return m_siswa_u('.$d->id.');" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-user" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Aktifkan User</a>';
-               // } 
-                  
-                
-                echo '</div>
-                      </td>
-                      </tr>
-                      ';
-              $no++;
-              }
-            }
-          ?>
-        </tbody>
-      </table>
-    
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="m_editstok_barang" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 id="myModalLabel">Edit Penambahan Barang</h4>
-      </div>
-      <div class="modal-body">
-          <form name="f_barang_stok" id="f_barang_stok" onsubmit="return m_barang_stok_s();">
-            <input type="hidden" name="id" id="id" value="0">
-              <table class="table table-form">
-				<tr><td style="width: 25%">Kode Penerimaan</td><td style="width: 75%"><input type="text" class="form-control" name="id_penerimaan" id="id_penerimaan" readonly></td></tr>
-				<tr><td style="width: 25%">Kode Jenis Barang</td><td style="width: 75%"><input type="text" class="form-control" name="kode_jenisbarang" id="kode_jenisbarang" readonly></td></tr>
-                <tr><td style="width: 25%">Kode Subjenis Barang</td><td style="width: 75%"><input type="text" class="form-control" name="kode_subjenisbarang" id="kode_subjenisbarang" readonly></td></tr>
-			    <tr><td style="width: 25%">Nama</td><td style="width: 75%"><input type="text" class="form-control" name="nama_barang" id="nama_barang" readonly></td></tr>
-                <tr><td style="width: 25%">Tanggal Dokumen</td><td style="width: 75%"><input type="date" class="form-control" name="tgl_dokumen" id="tgl_dokumen" required></td></tr>
-				<tr><td style="width: 25%">Jumlah Penerimaan</td><td style="width: 75%"><input type="text" class="form-control" name="jumlah_penerimaan" id="jumlah_penerimaan" required></td></tr>
-				<tr><td style="width: 25%">Sumber Penerimaan</td><td style="width: 75%"><input type="text" class="form-control" name="sumber_penerimaan" id="sumber_penerimaan" required></td></tr>
-				<tr><td style="width: 25%">Nilai Penerimaan</td><td style="width: 75%"><input type="text" class="form-control" name="nilai_penerimaan" id="nilai_penerimaan" required></td></tr>
-              
-			  </table>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary">Simpan</button>
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-      </div>
-        </form>
-    </div>
-  </div>
-</div>
-                    
-
 <?php
-	//id permintaan
-	$today=date("Y-m-d");
-	//$hariini=date_format($today,"Y-m-d");
-	$query = mysql_query("select max(substring(id_penerimaan,12,(LENGTH (id_penerimaan)-11))) as maxID from t_penerimaan_barang where substring(tgl_diterima,1,10)='$today' ORDER BY LENGTH(id_penerimaan) DESC, id_penerimaan DESC  ");
-	$data = mysql_fetch_array($query);
-	$idMax = $data['maxID'];
+	// Generate ID Penerimaan Otomatis
+	$today = date("Y-m-d");
+	$query = mysql_query("SELECT max(substring(id_penerimaan,12,(LENGTH (id_penerimaan)-11))) as maxID from t_penerimaan_barang where substring(tgl_diterima,1,10)='$today' ORDER BY LENGTH(id_penerimaan) DESC, id_penerimaan DESC");
+	$dataMax = mysql_fetch_array($query);
+	$idMax = $dataMax['maxID'];
 	$noUrut = (int) $idMax;
 	$noUrut++;
-	$newID = $today."-".sprintf($noUrut);
-	//isi default
-	$id_permintaan = '';
-	$nama = array();
-	$jumlah = array()
-	
-	?>
+	$newID = $today . "-" . sprintf($noUrut);
 
-<div class="modal fade" id="m_barang_stok_new" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div style="width:1200px"  class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 id="myModalLabel">Data Barang Yang Diterima</h4>
+	// Load daftar barang master untuk Select2
+	$strSQL = "SELECT * FROM m_barang ORDER BY nama_barang";
+	$objQuery = mysql_query($strSQL);
+	$master_barang_list = array();
+	if ($objQuery) {
+		while($row = mysql_fetch_array($objQuery)) {
+			$master_barang_list[] = array(
+				'key' => $row['kode_jenisbarang'] . '-' . $row['kode_subjenisbarang'],
+				'nama' => $row['nama_barang'],
+				'satuan' => strtoupper($row['satuan'])
+			);
+		}
+	}
+?>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <!-- Card: Transaksi Update Stok Barang -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><i class="fa-solid fa-boxes-packing" style="color: var(--primary);"></i> Transaksi Update & Penerimaan Stok Barang</h4>
+        <div class="panel-action">
+          <button type="button" class="btn btn-primary btn-sm" onclick="return m_barang_stok_new();">
+            <i class="fa-solid fa-plus"></i> Tambah Penerimaan Stok
+          </button>
+        </div>
       </div>
-     <form action="<?php echo base_url();?>adm/stok_barang/tambah_stok/" method="post" accept-charset="utf-8" enctype="multipart/form-data">
-                    <label>&nbsp;&nbsp;Kode Penerimaan Barang</label>&nbsp;&nbsp;
-                    <input type="text" name="id_penerimaan" id="id_penerimaan" value="<?php echo $newID; ?>" readonly/><br><br>
-					<input type="hidden" name="id" id="id" value="0">
-                   
-					&nbsp;&nbsp;<a class="btn btn-success btn-sm " onclick="additem_stock(); return false"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;Tambah Barang</a></label>
-					<!--<a class="btn btn-success btn-sm " onclick="additem(); return false"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;Tambah Barang</a>-->
-                    <br>
-					&nbsp;&nbsp;
-					<table class="table table-condensed">
-						<tr>
-							 <th width="20%"> Nama Barang</th>
-							 <th width="15%"> Jumlah Barang Diterima</th>
-							 <th width="20%"> Sumber Penerimaan Barang</th>
-							 <th width="15%"> Nilai Penerimaan</th>
-							 <th width="20%"> Tanggal Dokumen</th>
-							 <th width="10%"> Action </th>
-						</tr>
-                        <!--elemet sebagai target append-->
-                        <tbody id="itemlist_stock">
-							
-                            <?php
-                            /* DISINI SEDIKIT TRICKY
-                             * ini untuk menampilkan isian yang telah diinputkan sebelumnya
-                            tanpa ini inputan yang udah diinput akan hilang karena DOM hanya dimodifikasi
-                            sebelum form disubmit, saat disubmit DOM akan kembali ke awal, oleh karena itu
-                            kita perlu 'menangkap' inputan pada nama dan membuat baris tabel berdasarkan
-                            inputan yang tadi disubmit */
-                            $i = 0;
-                            foreach ($nama as $key => $j) {
-                                ?>
-                                <tr id="<?php echo $key . 'tr' ;?>"> 
-                                    <td width="30%"><select name="nama_input[<?php echo $key ?>]" id="nama_input[<?php echo $key ?>]" class="input-block-level" value="<?php echo $j ?>" /></select></td>
-									<td width="15%"><input name="jumlah_input[<?php echo $key ?>]" class="input-block-level" value="<?php echo $j ?>" /></td>
-                                    <td width="20%"><input name="sumber_input[<?php echo $key ?>]" class="input-block-level" value="<?php echo $j ?>" /></td>
-									<td width="15%"><input name="nilai_input[<?php echo $key ?>]" class="input-block-level" value="<?php echo $j ?>" /></td>
-									<td width="20%"><input name="tgl_diterima[<?php echo $key ?>]" class="input-block-level" value="<?php echo $j ?>" /></td>
-									<td width="20%"><a class="btn btn-success btn-sm " onclick="busek(' . <?php echo $key ; ?>. '); return false;" id="' . <?php echo $key ; ?> . '"><i class="glyphicon glyphicon-trash"></i>hapus</a></td>
-                                </tr>
-                                <?php
-                                $i = $key;
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                    &nbsp;&nbsp;<button type="submit" name="submit" class="btn btn-small btn-primary">Simpan</button>
-					<br><br>
-                </form>        
+      <div class="panel-body" style="padding: 0;">
+        <table class="table table-hover" style="margin-bottom: 0;">
+          <thead>
+            <tr>
+              <th width="5%" class="ctr">No</th>
+              <th width="15%">Kode Penerimaan</th>
+              <th width="15%">Kode Barang</th>
+              <th width="28%">Nama Barang</th>
+              <th width="12%" class="ctr">Jumlah Diterima</th>
+              <th width="15%">Sumber Penerimaan</th>
+              <th width="10%" class="ctr">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if (!empty($data)) {
+                $no = 1;
+                foreach ($data as $d) {
+            ?>
+              <tr>
+                <td class="ctr" style="font-weight: 600; color: #64748b;"><?php echo $no; ?></td>
+                <td>
+                  <span style="font-weight: 700; color: #0f172a;"><?php echo $d->id_penerimaan; ?></span>
+                </td>
+                <td>
+                  <span style="font-size: 12px; color: #64748b; font-family: monospace;"><?php echo $d->kode_jenisbarang.' '.$d->kode_subjenisbarang; ?></span>
+                </td>
+                <td>
+                  <?php if (!empty($d->nama_barang)): ?>
+                    <span style="font-weight: 600; color: #1e293b;"><?php echo $d->nama_barang; ?></span>
+                  <?php else: ?>
+                    <span style="display: inline-flex; align-items: center; gap: 6px; background: #fef3c7; color: #92400e; border: 1px solid #fde68a; padding: 3px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600;">
+                      <i class="fa-solid fa-box-archive"></i> [Arsip / Kode Lama]
+                    </span>
+                  <?php endif; ?>
+                </td>
+                <td class="ctr">
+                  <span class="stock-badge stock-badge-available">
+                    +<?php echo $d->jumlah_penerimaan; ?>
+                  </span>
+                </td>
+                <td>
+                  <span style="color: #475569;"><?php echo !empty($d->sumber_penerimaan) ? $d->sumber_penerimaan : '-'; ?></span>
+                </td>
+                <td class="ctr">
+                  <div class="btn-group" style="display: inline-flex; gap: 6px;">
+                    <a href="#" onclick="return m_stokbarang_e(<?php echo $d->id; ?>);" class="btn btn-outline-primary btn-xs" title="Edit Penerimaan">
+                      <i class="fa-solid fa-pen-to-square"></i> Edit
+                    </a>
+                    <a href="#" onclick="return m_stokbarang_h(<?php echo $d->id; ?>);" class="btn btn-outline-danger btn-xs" title="Hapus Penerimaan">
+                      <i class="fa-solid fa-trash-can"></i> Hapus
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            <?php 
+                  $no++;
+                }
+              } else {
+            ?>
+              <tr>
+                <td colspan="7" class="ctr" style="padding: 36px; color: #94a3b8;">
+                  <i class="fa-solid fa-box-open" style="font-size: 36px; margin-bottom: 8px; display: block;"></i>
+                  Belum ada riwayat transaksi penerimaan barang.
+                </td>
+              </tr>
+            <?php } ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- =========================================================================
+     MODAL 1: Tambah Penerimaan Stok Barang (m_barang_stok_new)
+     ========================================================================= -->
+<div class="modal fade" id="m_barang_stok_new" tabindex="-1" role="dialog" aria-labelledby="modalLabelTambahStok">
+  <div class="modal-dialog" style="width: 95%; max-width: 1250px; margin: 30px auto;" role="document">
+    <div class="modal-content" style="border-radius: 14px; border: none; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);">
+      
+      <div class="modal-header" style="background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 18px 24px; border-top-left-radius: 14px; border-top-right-radius: 14px;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size: 24px; opacity: 0.6;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 id="modalLabelTambahStok" style="margin: 0; font-size: 17px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 10px;">
+          <i class="fa-solid fa-cart-flatbed" style="color: var(--primary);"></i>
+          Data Barang Masuk / Tambah Stok
+        </h4>
+      </div>
+
+      <form action="<?php echo base_url();?>adm/stok_barang/tambah_stok/" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+        <input type="hidden" name="id" id="id" value="0">
+
+        <div class="modal-body" style="padding: 24px;">
+          
+          <!-- Header Bar: Kode Penerimaan & Tambah Baris -->
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 18px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <label style="margin: 0; font-size: 13px; font-weight: 700; color: #334155;">
+                <i class="fa-solid fa-receipt" style="color: var(--primary); margin-right: 4px;"></i> Kode Penerimaan:
+              </label>
+              <input type="text" name="id_penerimaan" id="id_penerimaan" value="<?php echo $newID; ?>" class="form-control" style="width: 170px; height: 36px; font-weight: 700; background: #ffffff; text-align: center;" readonly />
+            </div>
+
+            <div>
+              <button type="button" class="btn btn-success btn-sm" onclick="additem_stock();" style="padding: 7px 14px;">
+                <i class="fa-solid fa-plus"></i> Tambah Baris Barang
+              </button>
+            </div>
+          </div>
+
+          <!-- Table Items Container -->
+          <div style="border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden;">
+            <table class="table" style="margin-bottom: 0;">
+              <thead>
+                <tr>
+                  <th width="28%">Nama Barang (Cari ATK)</th>
+                  <th width="15%">Jumlah Diterima</th>
+                  <th width="20%">Sumber Penerimaan</th>
+                  <th width="15%">Nilai Penerimaan (Rp)</th>
+                  <th width="16%">Tanggal Dokumen</th>
+                  <th width="6%" class="ctr">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="itemlist_stock">
+                <!-- Elemen baris baru akan di-append ke sini lewat JavaScript -->
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <div class="modal-footer" style="background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 16px 24px; border-bottom-left-radius: 14px; border-bottom-right-radius: 14px; display: flex; align-items: center; justify-content: flex-end; gap: 10px;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            <i class="fa-solid fa-xmark"></i> Batal
+          </button>
+          <button type="submit" name="submit" class="btn btn-primary" style="padding: 9px 20px;">
+            <i class="fa-solid fa-floppy-disk"></i> Simpan Penambahan Stok
+          </button>
+        </div>
+
+      </form>
+
     </div>
   </div>
 </div>
 
-<?php
-			$strSQL = "SELECT * FROM m_barang";
-			$objQuery = mysql_query($strSQL);
-?>
-        <script language="javascript">
-			function fncCreateSelectOption(ele)
-			{
-				var objSelect = ele;
-				var Item = new Option("", ""); 
-				objSelect.options[objSelect.length] = Item;
-				<?php
-				while($objResult = mysql_fetch_array($objQuery))
-				{
-				?>
-				var Item = new Option("<?php echo $objResult['nama_barang'];?>","<?php echo $objResult['kode_jenisbarang'].'-'.$objResult['kode_subjenisbarang'];?>"); 
-				objSelect.options[objSelect.length] = Item;
-				<?php
-				}
-				?>
-			}
-			
-	        var i = "<?php echo $i + 1; ?>";
-            function additem_stock() {
-//                menentukan target append
-                var itemlist_stock = document.getElementById('itemlist_stock');
+<!-- =========================================================================
+     MODAL 2: Edit Penambahan Barang (m_editstok_barang)
+     ========================================================================= -->
+<div class="modal fade" id="m_editstok_barang" tabindex="-1" role="dialog" aria-labelledby="modalLabelEditStok">
+  <div class="modal-dialog" style="max-width: 650px;" role="document">
+    <div class="modal-content" style="border-radius: 14px; border: none; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);">
+      
+      <div class="modal-header" style="background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 18px 24px; border-top-left-radius: 14px; border-top-right-radius: 14px;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size: 24px; opacity: 0.6;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 id="modalLabelEditStok" style="margin: 0; font-size: 17px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 10px;">
+          <i class="fa-solid fa-pen-to-square" style="color: var(--primary);"></i>
+          Edit Catatan Penambahan Barang
+        </h4>
+      </div>
 
-//                membuat element
-                var row = document.createElement('tr');
-                var nama = document.createElement('td');
-				var jumlah = document.createElement('td');
-				var sumber = document.createElement('td');
-				var nilai = document.createElement('td');
-				var tgl = document.createElement('td');
-                var aksi = document.createElement('td');
-                aksi.setAttribute('width', '10px');
+      <form name="f_barang_stok" id="f_barang_stok" onsubmit="return m_barang_stok_s();">
+        <input type="hidden" name="id" id="id" value="0">
 
-//                meng append element
-                itemlist_stock.appendChild(row);
-                row.appendChild(nama);
-				row.appendChild(jumlah);
-				row.appendChild(sumber);
-				row.appendChild(nilai);
-				row.appendChild(tgl);
-                row.appendChild(aksi);
+        <div class="modal-body" style="padding: 24px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label>Kode Penerimaan</label>
+              <input type="text" class="form-control" name="id_penerimaan" id="id_penerimaan" readonly style="background: #f1f5f9; font-weight: 700;">
+            </div>
+            <div>
+              <label>Tanggal Dokumen</label>
+              <input type="date" class="form-control" name="tgl_dokumen" id="tgl_dokumen" required>
+            </div>
+          </div>
 
-//                membuat element select nama barang
-                var nama_input = document.createElement('select');
-                nama_input.setAttribute('name', 'nama_input[' + i + ']');
-                nama_input.setAttribute('class', 'input-block-level');
-				fncCreateSelectOption(nama_input);
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label>Kode Jenis Barang</label>
+              <input type="text" class="form-control" name="kode_jenisbarang" id="kode_jenisbarang" readonly style="background: #f1f5f9;">
+            </div>
+            <div>
+              <label>Kode Subjenis Barang</label>
+              <input type="text" class="form-control" name="kode_subjenisbarang" id="kode_subjenisbarang" readonly style="background: #f1f5f9;">
+            </div>
+          </div>
 
-				
-//                membuat element input jumlah barang
-                var jumlah_input = document.createElement('input');
-                jumlah_input.setAttribute('name', 'jumlah_input[' + i + ']');
-                jumlah_input.setAttribute('class', 'input-block-level');
-				
- //                membuat element input sumber penerimaan barang
-                var sumber_input = document.createElement('input');
-                sumber_input.setAttribute('name', 'sumber_input[' + i + ']');
-                sumber_input.setAttribute('class', 'input-block-level');
-		
-//                membuat element input nilai penerimaan barang
-                var nilai_input = document.createElement('input');
-                nilai_input.setAttribute('name', 'nilai_input[' + i + ']');
-                nilai_input.setAttribute('class', 'input-block-level');
-				
-//                membuat element input tanggal penerimaan barang
-                var tgl_diterima = document.createElement('input');
-                tgl_diterima.setAttribute('name', 'tgl_diterima[' + i + ']');
-                tgl_diterima.setAttribute('class', 'input-block-level');
-				tgl_diterima.setAttribute('type', 'date');
-				
-				var hapus = document.createElement('span');
+          <div style="margin-bottom: 16px;">
+            <label>Nama Barang</label>
+            <input type="text" class="form-control" name="nama_barang" id="nama_barang" readonly style="background: #f1f5f9; font-weight: 600;">
+          </div>
 
-//                meng append element input
-                nama.appendChild(nama_input);
-				jumlah.appendChild(jumlah_input);
-				sumber.appendChild(sumber_input);
-				nilai.appendChild(nilai_input);
-				tgl.appendChild(tgl_diterima);
-                aksi.appendChild(hapus);
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label>Jumlah Penerimaan</label>
+              <input type="number" min="1" class="form-control" name="jumlah_penerimaan" id="jumlah_penerimaan" required>
+            </div>
+            <div>
+              <label>Nilai Penerimaan (Rp)</label>
+              <input type="text" class="form-control" name="nilai_penerimaan" id="nilai_penerimaan" placeholder="Contoh: 150000" required>
+            </div>
+          </div>
 
-                hapus.innerHTML = '<a>hapus</a>';
-//                membuat aksi delete element
-                hapus.onclick = function () {
-                    row.parentNode.removeChild(row);
-                };
+          <div>
+            <label>Sumber Penerimaan</label>
+            <input type="text" class="form-control" name="sumber_penerimaan" id="sumber_penerimaan" placeholder="Contoh: CV Putramas Group / DIPA" required>
+          </div>
+        </div>
 
-                i++;
-            }
+        <div class="modal-footer" style="background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 16px 24px; border-bottom-left-radius: 14px; border-bottom-right-radius: 14px; display: flex; justify-content: flex-end; gap: 10px;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            <i class="fa-solid fa-xmark"></i> Tutup
+          </button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan
+          </button>
+        </div>
 
-            function busek(id) {
-                var ele = id + 'tr';
-                var elem = document.getElementById(ele);
-                return elem.parentNode.removeChild(elem);
-            }
-            ;
-        </script>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================================
+     JAVASCRIPT: Select2 Searchable & Dynamic Rows Tambah Stok
+     ========================================================================= -->
+<script language="javascript">
+  var masterBarangStock = <?php echo json_encode($master_barang_list); ?>;
+  var masterBarangStockMap = {};
+  for (var i = 0; i < masterBarangStock.length; i++) {
+    masterBarangStockMap[masterBarangStock[i].key] = masterBarangStock[i];
+  }
+
+  // 1-based indexing sesuai kebutuhan loop controller backend (i=1; foreach($nama as $key=>$n){ $key=$i; ... })
+  var stockRowIndex = 1;
+
+  function createStockOptionsHTML() {
+    var html = '<option value="">-- Pilih atau cari nama barang ATK --</option>';
+    for (var i = 0; i < masterBarangStock.length; i++) {
+      var item = masterBarangStock[i];
+      html += '<option value="' + item.key + '">' + item.nama + ' (' + item.satuan + ')</option>';
+    }
+    return html;
+  }
+
+  function additem_stock() {
+    var idx = stockRowIndex++;
+    var todayStr = new Date().toISOString().split('T')[0];
+    var container = document.getElementById('itemlist_stock');
+
+    var row = document.createElement('tr');
+    row.setAttribute('id', 'stock_row_' + idx);
+
+    row.innerHTML = 
+      '<td>' +
+        '<select name="nama_input[' + idx + ']" id="stock_select_' + idx + '" class="form-control select2-stock-item" style="width: 100%;">' +
+          createStockOptionsHTML() +
+        '</select>' +
+      '</td>' +
+
+      '<td>' +
+        '<div style="display: flex; align-items: center; gap: 6px;">' +
+          '<input type="number" min="1" step="1" name="jumlah_input[' + idx + ']" id="stock_qty_' + idx + '" class="form-control" placeholder="0" style="text-align: center; font-weight: 700;" required>' +
+          '<span class="unit-badge" id="stock_unit_' + idx + '" style="height: 38px; font-size: 11px;">-</span>' +
+        '</div>' +
+      '</td>' +
+
+      '<td>' +
+        '<input type="text" name="sumber_input[' + idx + ']" class="form-control" placeholder="Sumber (CV/DIPA)" style="height: 38px;" required>' +
+      '</td>' +
+
+      '<td>' +
+        '<input type="text" name="nilai_input[' + idx + ']" class="form-control" placeholder="Nilai Rp" style="height: 38px;" required>' +
+      '</td>' +
+
+      '<td>' +
+        '<input type="date" name="tgl_diterima[' + idx + ']" value="' + todayStr + '" class="form-control" style="height: 38px;" required>' +
+      '</td>' +
+
+      '<td class="ctr">' +
+        '<button type="button" class="btn btn-outline-danger btn-xs" onclick="removeStockRow(' + idx + ');" title="Hapus baris">' +
+          '<i class="fa-solid fa-trash-can"></i>' +
+        '</button>' +
+      '</td>';
+
+    container.appendChild(row);
+
+    // Aktifkan Select2 dengan pencarian di dalam modal
+    $('#stock_select_' + idx).select2({
+      dropdownParent: $('#m_barang_stok_new'),
+      placeholder: '-- Pilih atau cari nama barang ATK --',
+      allowClear: true,
+      width: '100%'
+    }).on('change', function () {
+      var key = $(this).val();
+      var item = masterBarangStockMap[key];
+      if (item) {
+        $('#stock_unit_' + idx).text(item.satuan || '-');
+      } else {
+        $('#stock_unit_' + idx).text('-');
+      }
+    });
+  }
+
+  function removeStockRow(idx) {
+    var totalRows = $('#itemlist_stock tr').length;
+    if (totalRows <= 1) {
+      alert('Minimal harus ada 1 barang dalam daftar penerimaan.');
+      return;
+    }
+    var row = document.getElementById('stock_row_' + idx);
+    if (row) {
+      row.parentNode.removeChild(row);
+    }
+  }
+
+  // Buka modal dan auto-tambah 1 baris awal jika masih kosong
+  $(document).ready(function () {
+    $('#m_barang_stok_new').on('shown.bs.modal', function () {
+      if ($('#itemlist_stock tr').length === 0) {
+        additem_stock();
+      }
+    });
+  });
+</script>
