@@ -1,0 +1,54 @@
+body {
+	font-family: arial;
+	margin: 40px auto;
+	width: 100%;
+	margin: 25mm 25mm 25mm 25mm;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+table tr td {
+	font-family: arial;
+	font-size: 14px;
+	padding: 3px;
+}
+
+.table-bordered {
+	border-collapse: collapse;
+	width: 100%;
+	border: solid 1px #000;
+	margin-bottom: 20px;
+}
+
+.table-bordered tr td, .table-bordered tr th {
+	font-family: arial;
+	font-size: 14px;
+	padding: 3px;
+	border: solid 1px #000;
+}
+
+h4 {margin-bottom: 0px; margin-top: 0px;}
+.ctr {text-align: center}
+.rgt {text-align: right}
+
+page[size="A4"] {
+  background: white;
+  width: 21cm;
+  height: 29.7cm;
+  display: block;
+  margin: 1 auto;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+  size: portrait;
+}
+@media print {
+  body, page[size="A4"] {
+    margin: 1;
+    box-shadow: 0;
+	size: portrait;
+  }
+}

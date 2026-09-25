@@ -1,0 +1,15 @@
+
+
+
+
+<h4 ALIGN="CENTER">FORMULIR PERMINTAAN BARANG ALAT TULIS KANTOR/ALAT RUMAH TANGGA KANTOR</h4><BR>
+<h4 ALIGN="CENTER">BPS PROVINSI JAWA TENGAH</h4>
+<hr style="border: solid 1px #000"><br>
+
+<h5>Kepada Yth.</h5>
+<h5>Kepala Bagian Tata Usaha</h5>
+<h5>BPS Provinsi Jawa Tengah</h5>
+<h5>di</h5>
+<h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEMPAT</h5>
+
+<table>
