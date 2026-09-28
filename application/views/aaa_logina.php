@@ -323,7 +323,7 @@ body.login-canvas {
     <!-- Brand Header -->
     <div class="login-header">
       <div class="login-logo-wrapper">
-        <img src="<?php echo base_url(); ?>___/img/logo_simantik.svg" alt="SIMANTIK Logo" width="54" height="54" />
+        <img src="<?php echo base_url(); ?>___/img/logo-bps.svg" alt="Logo BPS" width="54" height="54" />
       </div>
       <h1 class="login-title">SIMANTIK</h1>
       <p class="login-subtitle">Sistem Informasi Permintaan ATK / ART Kantor</p>
