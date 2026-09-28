@@ -54,17 +54,18 @@ $(document).ready(function () {
 <nav class="navbar navbar-simantik navbar-fixed-top">
   <div class="header-fluid-container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#simantikNavbar">
-        <span class="sr-only">Toggle navigation</span>
-        <i class="fa-solid fa-bars" style="color: #334155; font-size: 18px;"></i>
-      </button>
       <a class="navbar-brand" href="<?php echo base_url(); ?>adm">
-        <img src="<?php echo base_url(); ?>___/img/logo_simantik.svg" alt="SIMANTIK Logo" width="42" height="42" class="brand-logo-img" />
+        <img src="<?php echo base_url(); ?>___/img/logo-bps.svg" alt="Badan Pusat Statistik" class="brand-bps-logo" />
+        <div class="brand-divider"></div>
         <div class="brand-title-group">
           <span class="brand-name">SIMANTIK</span>
           <span class="brand-subtitle">Sistem Informasi Permintaan ATK/ART Kantor</span>
         </div>
       </a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#simantikNavbar">
+        <span class="sr-only">Toggle navigation</span>
+        <i class="fa-solid fa-bars" style="color: #334155; font-size: 18px;"></i>
+      </button>
     </div>
 
     <div class="collapse navbar-collapse" id="simantikNavbar">
@@ -78,16 +79,16 @@ $(document).ready(function () {
           </div>
           <div class="user-info-text">
             <span class="user-name"><?php echo $this->session->userdata('admin_nama'); ?></span>
-            <span class="user-meta">@<?php echo $this->session->userdata('admin_user'); ?> &bull; <?php echo strtoupper($this->session->userdata('admin_level')); ?></span>
+            <span class="user-meta">@<?php echo $this->session->userdata('admin_user'); ?> &bull; <span class="user-role-pill"><?php echo strtoupper($this->session->userdata('admin_level')); ?></span></span>
           </div>
         </div>
 
-        <div class="header-action-buttons" style="display: flex; gap: 8px;">
+        <div class="header-action-buttons">
           <a href="#" onclick="return rubah_password();" class="btn btn-header-action" title="Ubah Password">
-            <i class="fa-solid fa-key"></i> Ubah Password
+            <i class="fa-solid fa-key"></i> <span class="action-btn-text">Ubah Password</span>
           </a>
           <a href="<?php echo base_url(); ?>adm/logout" onclick="return confirm('Apakah Anda yakin ingin keluar dari SIMANTIK?');" class="btn btn-header-logout" title="Keluar">
-            <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> <span class="action-btn-text">Keluar</span>
           </a>
         </div>
       </div>
@@ -156,20 +157,34 @@ if ($sess_level == "user") {
 }
 ?>
 
-<div class="container" style="margin-top: 90px;">
+<div class="container simantik-main-container">
 
   <!-- Sleek Horizontal Navigation Bar -->
   <div class="simantik-nav-wrapper">
-    <?php 
-    foreach ($menu as $m) {
-      $isActive = ($uri2 == $m['url']);
-      $activeClass = $isActive ? 'active' : '';
-      echo '<a href="'.base_url().'adm/'.$m['url'].'" class="simantik-nav-item '.$activeClass.'">';
-      echo getNavSvgIcon($m['key']);
-      echo '<span>'.$m['text'].'</span>';
-      echo '</a>';
-    }
-    ?>
+    <div class="simantik-nav-links">
+      <?php 
+      foreach ($menu as $m) {
+        $isActive = ($uri2 == $m['url']);
+        $activeClass = $isActive ? 'active' : '';
+        echo '<a href="'.base_url().'adm/'.$m['url'].'" class="simantik-nav-item '.$activeClass.'">';
+        echo getNavSvgIcon($m['key']);
+        echo '<span>'.$m['text'].'</span>';
+        echo '</a>';
+      }
+      ?>
+    </div>
+    <div class="simantik-nav-extra hidden-xs">
+      <span class="nav-system-status"><span class="status-indicator-dot"></span> Sistem Aktif</span>
+      <span class="nav-date-display"><i class="fa-regular fa-calendar-days"></i> <?php 
+        $hari_arr = array('Sunday'=>'Minggu','Monday'=>'Senin','Tuesday'=>'Selasa','Wednesday'=>'Rabu','Thursday'=>'Kamis','Friday'=>'Jumat','Saturday'=>'Sabtu');
+        $bulan_arr = array('01'=>'Januari','02'=>'Februari','03'=>'Maret','04'=>'April','05'=>'Mei','06'=>'Juni','07'=>'Juli','08'=>'Agustus','09'=>'September','10'=>'Oktober','11'=>'November','12'=>'Desember');
+        $hari_ini = isset($hari_arr[date('l')]) ? $hari_arr[date('l')] : date('l');
+        $tgl_ini = date('d');
+        $bln_ini = isset($bulan_arr[date('m')]) ? $bulan_arr[date('m')] : date('m');
+        $thn_ini = date('Y');
+        echo "$hari_ini, $tgl_ini $bln_ini $thn_ini";
+      ?></span>
+    </div>
   </div>
 
   <!-- Page Content View -->
