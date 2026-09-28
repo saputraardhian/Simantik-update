@@ -1,5 +1,9 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+if (file_exists(APPPATH . 'helpers/mysql_compat.php')) {
+	require_once APPPATH . 'helpers/mysql_compat.php';
+}
+
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes

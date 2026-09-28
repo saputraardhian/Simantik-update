@@ -153,14 +153,12 @@ class Adm extends CI_Controller {
 		$password2	= md5($password);
 		if($username && $password){
 			
-			if($this->input->post('ppnpn') && $this->input->post('ppnpn')=='ppnpn')
-			{
-				$q_data		= $this->db->query("SELECT * FROM m_pegawai WHERE username = '".$username."' AND password = '".$password2."'");
-				$j_data		= $q_data->num_rows();
-				$a_data		= $q_data->row();
-				
-				$_log		= array();
-				if ($j_data == 1) {
+			$q_data		= $this->db->query("SELECT * FROM m_pegawai WHERE username = '".$username."' AND password = '".$password2."'");
+			$j_data		= $q_data->num_rows();
+			$a_data		= $q_data->row();
+			
+			$_log		= array();
+			if ($j_data == 1) {
 				$data = array(
                     'admin_id' 		=> $a_data->id,
                     'admin_user' 	=> $a_data->username,
@@ -168,19 +166,22 @@ class Adm extends CI_Controller {
                     'admin_nip' 	=> $a_data->nip,
                     'admin_nama' 	=> $a_data->nama,
 					'admin_valid' 	=> true
-                    );
+				);
 				
 				$this->session->set_userdata($data);
 				$_log['log']['status']			= "1";
 				$_log['log']['keterangan']		= "Login berhasil";
-				$_log['log']['detil_admin']		= $this->session->userdata;				
-				}
-				else
-				{
+				$_log['log']['detil_admin']		= $this->session->userdata;
+				$this->j($_log);
+				return;
+			}
+			else if($this->input->post('ppnpn') && $this->input->post('ppnpn')=='ppnpn')
+			{
 				$_log['log']['status']			= "0";
 				$_log['log']['keterangan']		= "Maaf, username dan password tidak terdaftar";
-				$_log['log']['detil_admin']		= null;	
-				}
+				$_log['log']['detil_admin']		= null;
+				$this->j($_log);
+				return;
 			}
 			else
 			{
