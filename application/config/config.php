@@ -1,7 +1,10 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 
-$config['base_url']			= "https://".$_SERVER['SERVER_NAME']."/simantik/";
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost');
+$script_dir = isset($_SERVER['SCRIPT_NAME']) ? str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']) : '/';
+$config['base_url']			= $protocol . $host . $script_dir;
 $config['index_page'] 		= '';
 $config['uri_protocol']		= 'AUTO';
 $config['url_suffix'] = '';

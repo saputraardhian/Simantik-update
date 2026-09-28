@@ -77,16 +77,33 @@ function tgl_jam_sql ($tgl) {
 
 $today=date("Y-m-d");
 $tanggal=tgl_jam_sql($today);
-$nip_pengajuan = $datayangmengajukan->nip_pegawai;
-$querynama = mysql_query("select * from m_pegawai where nip='$nip_pengajuan'");
-$data = mysql_fetch_array($querynama);
-$nama_pegawai=$data['nama'];
-$unitkerja=$data['id_unitkerja']; 
-//$unitkerjakabid = substr($unitkerja,0,4).'0';
-$querynamakabid = mysql_query("select * from m_pegawai where id_unitkerja='$unitkerja' and id_eselon='4'");
-$datakabid=mysql_fetch_array($querynamakabid);
-$namakabid=$datakabid['nama'];
-$nipkabid=$datakabid['nip'];
+$nip_pengajuan = !empty($datayangmengajukan->nip_pegawai) ? $datayangmengajukan->nip_pegawai : '';
+
+$nama_pegawai = '';
+$unitkerja = '';
+if (!empty($nip_pengajuan)) {
+	$querynama = mysql_query("select * from m_pegawai where nip='$nip_pengajuan'");
+	if ($querynama && mysql_num_rows($querynama) > 0) {
+		$data = mysql_fetch_array($querynama);
+		$nama_pegawai = isset($data['nama']) ? $data['nama'] : '';
+		$unitkerja = isset($data['id_unitkerja']) ? $data['id_unitkerja'] : '';
+	}
+}
+
+if (empty($nama_pegawai) && !empty($datayangmengajukan->nama)) {
+	$nama_pegawai = $datayangmengajukan->nama;
+}
+
+$namakabid = '';
+$nipkabid = '';
+if (!empty($unitkerja)) {
+	$querynamakabid = mysql_query("select * from m_pegawai where id_unitkerja='$unitkerja' and id_eselon='4'");
+	if ($querynamakabid && mysql_num_rows($querynamakabid) > 0) {
+		$datakabid = mysql_fetch_array($querynamakabid);
+		$namakabid = isset($datakabid['nama']) ? $datakabid['nama'] : '';
+		$nipkabid  = isset($datakabid['nip']) ? $datakabid['nip'] : '';
+	}
+}
 ?>
 
 <link href='<?php echo base_url(); ?>___/css/style_print.css' rel='stylesheet' media='' type='text/css'/>
@@ -164,7 +181,7 @@ $nipkabid=$datakabid['nip'];
 <table style="width:1100px">
 <tr>
 	<td>&nbsp;</td>
-	<td class="ctr">Semarang,<?php echo tgl_jam_sql($qtgl_permintaan->tgl_permintaan);?>	</td>
+	<td class="ctr">Semarang, <?php echo !empty($qtgl_permintaan->tgl_permintaan) ? tgl_jam_sql($qtgl_permintaan->tgl_permintaan) : tgl_jam_sql($today); ?></td>
 </tr>
 <tr>
 	<td class="ctr"> Mengetahui</td>
@@ -187,8 +204,8 @@ $nipkabid=$datakabid['nip'];
 	<td class="ctr">&nbsp;</td>
 </tr>
 <tr>
-	<td class="ctr">(..........................................)</td>
-	<td class="ctr"><?php echo $nama_pegawai;?></td>
+	<td class="ctr"><?php echo !empty($namakabid) ? '('.$namakabid.')' : '(..........................................)'; ?></td>
+	<td class="ctr"><?php echo !empty($nama_pegawai) ? $nama_pegawai : '(..........................................)'; ?></td>
 </tr>
 <tr>
 	<td class="ctr" colspan="2">&nbsp;</td>

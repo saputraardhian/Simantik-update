@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="42" height="42" fill="none">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="simantikBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="60%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <!-- Top Ribbon Gradient (Cyan to Electric Blue) -->
+    <linearGradient id="simantikTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+
+    <!-- Mid Ribbon Gradient (Electric Blue to Indigo) -->
+    <linearGradient id="simantikMid" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="50%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+
+    <!-- Bottom Ribbon Gradient (Blue to Emerald) -->
+    <linearGradient id="simantikBottom" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+
+    <!-- Soft Glow Filter -->
+    <filter id="simantikGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#2563eb" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <!-- Container Squircle with subtle border -->
+  <rect x="2" y="2" width="44" height="44" rx="12" fill="url(#simantikBg)" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1.2" />
+
+  <!-- Inner Tech Grid / Circuit Accents (Subtle) -->
+  <path d="M 10 24 L 38 24" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1" />
+  <path d="M 24 10 L 24 38" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1" />
+
+  <!-- Dynamic Geometric "S" Monogram -->
+  <!-- Upper Curve of S -->
+  <path d="M 33 16 C 33 12.8 29.5 11 24 11 C 18 11 14.5 13.5 14.5 17.5 C 14.5 21.8 19 23.5 24 24.6 L 25.5 25" 
+        stroke="url(#simantikTop)" 
+        stroke-width="4.8" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+        filter="url(#simantikGlow)" />
+
+  <!-- Lower Curve of S with Emerald Tech Gradient -->
+  <path d="M 22.5 23 C 27.5 24.2 33.5 26 33.5 30.5 C 33.5 35 29.8 37.5 24 37.5 C 17.8 37.5 14.2 35 14.2 31.5" 
+        stroke="url(#simantikBottom)" 
+        stroke-width="4.8" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+        filter="url(#simantikGlow)" />
+
+  <!-- Diagonal Flow Ribbon Connecting the Curves -->
+  <path d="M 27 22 L 21 26" 
+        stroke="url(#simantikMid)" 
+        stroke-width="5" 
+        stroke-linecap="round" />
+
+  <!-- Glowing Terminal Dots for Tech Aesthetic -->
+  <circle cx="33" cy="16" r="2.2" fill="#38bdf8" />
+  <circle cx="14.2" cy="31.5" r="2.2" fill="#10b981" />
+</svg>
