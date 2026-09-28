@@ -207,24 +207,17 @@ function m_permintaan_setujui(id) {
 		success: function(data) {
 			if (data.status == "ok") {
 				var jml_data	= Object.keys(data.data).length;
-				var hate 	= '<div class="modal fade" id="m_permintaan_setujui" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 id="myModalLabel">Setujui Permintaan Barang</h4></div><div class="modal-body"><form name="f_list_barang" id="f_list_barang" method="post" action="/simantik/adm/kelola_permintaan_barang/serahkan_barang/";"><label>&nbsp;&nbsp;Kode Permintaan Barang</label>&nbsp;&nbsp;<input type="text" name="id_permintaan" id="id_permintaan" value="'+id+'" readonly /><input type="hidden" name="id_list_barang" id="id_list_barang" value="'+id+'"><div id="konfirmasi"></div>'+
-							'<table>';
+				var hate 	= '<div class="modal fade" id="m_permintaan_setujui" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"><div class="modal-dialog" style="max-width: 650px;" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 id="myModalLabel">Setujui Permintaan Barang</h4></div><div class="modal-body"><form name="f_list_barang" id="f_list_barang" method="post" action="'+base_url+'adm/kelola_permintaan_barang/serahkan_barang/"><div style="margin-bottom: 12px; display: flex; align-items: center; gap: 10px;"><label style="margin: 0; font-weight: 700;">Kode Permintaan: </label><input type="text" name="id_permintaan" id="id_permintaan" value="'+id+'" class="form-control" style="width: 170px; height: 34px; font-weight: 700; text-align: center;" readonly /><input type="hidden" name="id_list_barang" id="id_list_barang" value="'+id+'"></div><div id="konfirmasi"></div><div class="table-responsive" style="overflow-x: auto; -webkit-overflow-scrolling: touch; border: none; margin-bottom: 12px;"><table class="table table-bordered table-hover" style="min-width: 480px; margin-bottom: 0;"><thead><tr><th width="50%">Pilih Barang</th><th width="50%">Kuantitas Permintaan</th></tr></thead><tbody>';
 				
 				if (jml_data > 0) {
 					$.each(data.data, function(i, item) {
-						if (item.nip_pegawai_menyerahkan == "") 
-						{
-							hate += '<tr><td><label><input type="checkbox" value="'+item.id+'" name="id_list[]"> &nbsp;'+item.nama_barang+'&nbsp;&nbsp;&nbsp;</td><td><input type="hidden" name="nama_input[]" readonly class="input-block-level" value='+item.kode_jenisbarang+'-'+item.kode_subjenisbarang+' /><input name="jumlah_input[]" readonly class="input-block-level" value='+item.jumlah_permintaan+' /></label></td></tr> &nbsp;&nbsp; ';
-						}
-						else
-						{
-							hate += '<tr><td><label><input type="checkbox" value="'+item.id+'" name="id_list[]" checked> &nbsp;'+item.nama_barang+'&nbsp;&nbsp;&nbsp;</td><td><input type="hidden" name="nama_input[]" readonly class="input-block-level" value='+item.kode_jenisbarang+'-'+item.kode_subjenisbarang+' /><input name="jumlah_input[]" readonly class="input-block-level" value='+item.jumlah_permintaan+' /></label></td></tr> &nbsp;&nbsp; ';
-						}
+						var checkedAttr = (item.nip_pegawai_menyerahkan != "") ? "checked" : "";
+						hate += '<tr><td><label style="cursor: pointer; display: flex; align-items: center; gap: 8px; margin: 0;"><input type="checkbox" value="'+item.id+'" name="id_list[]" '+checkedAttr+'> <span>'+item.nama_barang+'</span></label></td><td><input type="hidden" name="nama_input[]" readonly class="form-control" value="'+item.kode_jenisbarang+'-'+item.kode_subjenisbarang+'" /><input name="jumlah_input[]" readonly class="form-control" style="width: 100px; text-align: center; font-weight: 600;" value="'+item.jumlah_permintaan+'" /></td></tr>';
 					});				
 				} else {
-					hate += 'Barang Sudah Diserahkan Semua';
+					hate += '<tr><td colspan="2" class="text-center" style="padding: 20px; color: #64748b;">Barang Sudah Diserahkan Semua</td></tr>';
 				}
-				hate += '</table><div class="modal-footer"><button class="btn btn-primary" type="submit">Serahkan</button><button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button></div></form></div></div></div>';
+				hate += '</tbody></table></div><div class="modal-footer"><button class="btn btn-primary" type="submit"><i class="fa-solid fa-check"></i> Serahkan Barang</button><button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Tutup</button></div></form></div></div></div></div>';
 				$("#tampilkan_modal").html(hate);
 				$("#m_permintaan_setujui").modal('show');
 			} else {
@@ -289,29 +282,19 @@ function m_permintaan_e(id) {
 		success: function(data) {
 			if (data.status == "ok") {
 				var jml_data	= Object.keys(data.data).length;
-				var hate 	= '<div class="modal fade" id="m_permintaan_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"><div style="width:1000px" margin"30px" class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 id="myModalLabel">Edit Permintaan Barang</h4></div><div class="modal-body"><form width="90%" name="f_permintaan_edit" id="f_permintaan_edit" method="post" action="/simantik/adm/kelola_permintaan_barang/edit_permintaan/"><label>&nbsp;&nbsp;Kode Permintaan Barang</label>&nbsp;&nbsp;<input type="text" name="id_permintaan" id="id_permintaan" value="'+id+'" readonly /><br>'+
-								'<div id="konfirmasi"></div>'+
-								'<table class="table table-condensed">'+
-								'<tr>'+
-								 '<th width="40%"> Nama Barang</th>'+
-								' <th width="40%"> Jumlah Barang</th>'+
-								' <th width="20%"> &nbsp;&nbsp; </th>'+
-								'</tr>'+
-								'<tbody id="itemlistedit">';
+				var hate 	= '<div class="modal fade" id="m_permintaan_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"><div class="modal-dialog" style="width: 95%; max-width: 850px; margin: 20px auto;" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 id="myModalLabel">Edit Permintaan Barang</h4></div><div class="modal-body"><form name="f_permintaan_edit" id="f_permintaan_edit" method="post" action="'+base_url+'adm/kelola_permintaan_barang/edit_permintaan/"><div style="margin-bottom: 12px; display: flex; align-items: center; gap: 10px;"><label style="margin: 0; font-weight: 700;">Kode Permintaan: </label><input type="text" name="id_permintaan" id="id_permintaan" value="'+id+'" class="form-control" style="width: 170px; height: 34px; font-weight: 700; text-align: center;" readonly /></div><div id="konfirmasi"></div><div class="table-responsive" style="overflow-x: auto; -webkit-overflow-scrolling: touch; border: none; margin-bottom: 12px;"><table class="table table-bordered table-hover" style="min-width: 580px; margin-bottom: 0;"><thead><tr><th width="45%">Nama Barang</th><th width="35%">Jumlah Barang</th><th width="20%" class="text-center">Aksi</th></tr></thead><tbody id="itemlistedit">';
 				if (jml_data > 0) {
 					$.each(data.data, function(i, item) {
 							hate += '<tr id="'+item.id+'tr"> '+
-                              '<td width="40%"><input type="text"  class="input-block-level"  value="'+item.nama_barang+' ('+item.satuan+')"/><input type="hidden" name="nama_input['+item.id+']" id="'+item.id+'" class="input-block-level" value="'+item.kode_jenisbarang+'-'+item.kode_subjenisbarang+'" ></td>'+
-							  '<td width="40%"><input name="jumlah_input['+item.id+']" class="input-block-level" value="'+item.jumlah_permintaan+'" /></td>'+
-                              '<td width="200px"><a onclick="busek('+item.id+'); return false;" id="'+item.id+'">hapus</a></td>'+
+                              '<td width="45%"><input type="text" class="form-control" value="'+item.nama_barang+' ('+item.satuan+')" readonly /><input type="hidden" name="nama_input['+item.id+']" id="'+item.id+'" class="form-control" value="'+item.kode_jenisbarang+'-'+item.kode_subjenisbarang+'" ></td>'+
+							  '<td width="35%"><input type="number" min="1" name="jumlah_input['+item.id+']" class="form-control" value="'+item.jumlah_permintaan+'" /></td>'+
+                              '<td width="20%" class="text-center"><a class="btn btn-outline-danger btn-xs" onclick="busek('+item.id+'); return false;" id="'+item.id+'"><i class="fa-solid fa-trash-can"></i> Hapus</a></td>'+
                               '</tr>';
-						
-							//hate += '<label><input type="checkbox" value="'+item.id+'" name="id_list[]"> &nbsp;'+item.nama_barang+'</label> &nbsp;&nbsp; ';
 					});				
 				} else {
-					hate += 'Barang Sudah Diserahkan Semua';
+					hate += '<tr><td colspan="3" class="text-center" style="padding: 20px; color: #64748b;">Barang Sudah Diserahkan Semua</td></tr>';
 				}
-				hate += '<a class="btn btn-success btn-sm " onclick="additemedit(); return false"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;Tambah Barang</a><br></tbody></table><div class="modal-footer"><button class="btn btn-primary" type="submit">Update</button><button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button></div></form></div></div></div></div>';
+				hate += '</tbody></table></div><div style="margin-top: 10px;"><a class="btn btn-success btn-sm" onclick="additemedit(); return false"><i class="fa-solid fa-plus"></i> Tambah Barang</a></div><div class="modal-footer"><button class="btn btn-primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> Update</button><button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Tutup</button></div></form></div></div></div></div>';
 				$("#tampilkan_modal").html(hate);
 				$("#m_permintaan_edit").modal('show');
 			} else {
@@ -330,29 +313,19 @@ function m_permintaan_e_admin(id) {
 		success: function(data) {
 			if (data.status == "ok") {
 				var jml_data	= Object.keys(data.data).length;
-				var hate 	= '<div class="modal fade" id="m_permintaan_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"><div style="width:1000px" margin"30px" class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 id="myModalLabel">Konfirmasi Permintaan Barang</h4></div><div class="modal-body"><form width="90%" name="f_permintaan_edit" id="f_permintaan_edit" method="post" action="/simantik/adm/kelola_permintaan_barang/edit_permintaan_admin/"><label>&nbsp;&nbsp;Kode Permintaan Barang</label>&nbsp;&nbsp;<input type="text" name="id_permintaan" id="id_permintaan" value="'+id+'" readonly /><br>'+
-								'<div id="konfirmasi"></div>'+
-								'<table class="table table-condensed">'+
-								'<tr>'+
-								 '<th width="40%"> Nama Barang</th>'+
-								' <th width="40%"> Jumlah Barang</th>'+
-								' <th width="20%"> Catatan </th>'+
-								'</tr>'+
-								'<tbody id="itemlistedit">';
+				var hate 	= '<div class="modal fade" id="m_permintaan_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"><div class="modal-dialog" style="width: 95%; max-width: 850px; margin: 20px auto;" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 id="myModalLabel">Konfirmasi Permintaan Barang</h4></div><div class="modal-body"><form name="f_permintaan_edit" id="f_permintaan_edit" method="post" action="'+base_url+'adm/kelola_permintaan_barang/edit_permintaan_admin/"><div style="margin-bottom: 12px; display: flex; align-items: center; gap: 10px;"><label style="margin: 0; font-weight: 700;">Kode Permintaan: </label><input type="text" name="id_permintaan" id="id_permintaan" value="'+id+'" class="form-control" style="width: 170px; height: 34px; font-weight: 700; text-align: center;" readonly /></div><div id="konfirmasi"></div><div class="table-responsive" style="overflow-x: auto; -webkit-overflow-scrolling: touch; border: none; margin-bottom: 12px;"><table class="table table-bordered table-hover" style="min-width: 600px; margin-bottom: 0;"><thead><tr><th width="40%">Nama Barang</th><th width="25%">Jumlah Barang</th><th width="35%">Catatan</th></tr></thead><tbody id="itemlistedit">';
 				if (jml_data > 0) {
 					$.each(data.data, function(i, item) {
 							hate += '<tr id="'+item.id+'tr"> '+
-                              '<td width="40%"><input type="text"  class="input-block-level"  value="'+item.nama_barang+'" readonly/><input type="hidden" name="nama_input['+item.id+']" id="'+item.id+'" class="input-block-level" value="'+item.kode_jenisbarang+'-'+item.kode_subjenisbarang+'" ></td>'+
-							  '<td width="40%"><input name="jumlah_input['+item.id+']" class="input-block-level" value="'+item.jumlah_permintaan+'" /></td>'+
-                              '<td width="200px"><input type="text"  class="input-block-level"  id="catatan_input['+item.id+']" name="catatan_input['+item.id+']" value="'+item.catatan+'"/></td>'+
+                              '<td width="40%"><input type="text" class="form-control" value="'+item.nama_barang+'" readonly/><input type="hidden" name="nama_input['+item.id+']" id="'+item.id+'" class="form-control" value="'+item.kode_jenisbarang+'-'+item.kode_subjenisbarang+'" ></td>'+
+							  '<td width="25%"><input type="number" min="1" name="jumlah_input['+item.id+']" class="form-control" value="'+item.jumlah_permintaan+'" /></td>'+
+                              '<td width="35%"><input type="text" class="form-control" id="catatan_input['+item.id+']" name="catatan_input['+item.id+']" value="'+(item.catatan || '')+'"/></td>'+
                               '</tr>';
-						
-							//hate += '<label><input type="checkbox" value="'+item.id+'" name="id_list[]"> &nbsp;'+item.nama_barang+'</label> &nbsp;&nbsp; ';
 					});				
 				} else {
-					hate += 'Barang Sudah Diserahkan Semua';
+					hate += '<tr><td colspan="3" class="text-center" style="padding: 20px; color: #64748b;">Barang Sudah Diserahkan Semua</td></tr>';
 				}
-				hate += '</tbody></table><div class="modal-footer"><button class="btn btn-primary" type="submit">Setujui Diproses</button><button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button></div></form></div></div></div></div>';
+				hate += '</tbody></table></div><div class="modal-footer"><button class="btn btn-primary" type="submit"><i class="fa-solid fa-check"></i> Setujui Diproses</button><button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Tutup</button></div></form></div></div></div></div>';
 				$("#tampilkan_modal").html(hate);
 				$("#m_permintaan_edit").modal('show');
 			} else {
@@ -371,29 +344,19 @@ function m_permintaan_v(id) {
 		success: function(data) {
 			if (data.status == "ok") {
 				var jml_data	= Object.keys(data.data).length;
-				var hate 	= '<div class="modal fade" id="m_permintaan_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"><div style="width:1000px" margin"30px" class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 id="myModalLabel">Konfirmasi Permintaan Barang</h4></div><div class="modal-body"><form width="90%" name="f_permintaan_edit" id="f_permintaan_edit" method="post" action="/simantik/adm/kelola_permintaan_barang/edit_permintaan_admin/"><label>&nbsp;&nbsp;Kode Permintaan Barang</label>&nbsp;&nbsp;<input type="text" name="id_permintaan" id="id_permintaan" value="'+id+'" readonly /><br>'+
-								'<div id="konfirmasi"></div>'+
-								'<table class="table table-condensed">'+
-								'<tr>'+
-								 '<th width="40%"> Nama Barang</th>'+
-								' <th width="40%"> Jumlah Barang</th>'+
-								' <th width="20%"> Catatan </th>'+
-								'</tr>'+
-								'<tbody id="itemlistedit">';
+				var hate 	= '<div class="modal fade" id="m_permintaan_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"><div class="modal-dialog" style="width: 95%; max-width: 850px; margin: 20px auto;" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 id="myModalLabel">Detail Permintaan Barang</h4></div><div class="modal-body"><form name="f_permintaan_edit" id="f_permintaan_edit" method="post"><div style="margin-bottom: 12px; display: flex; align-items: center; gap: 10px;"><label style="margin: 0; font-weight: 700;">Kode Permintaan: </label><input type="text" name="id_permintaan" id="id_permintaan" value="'+id+'" class="form-control" style="width: 170px; height: 34px; font-weight: 700; text-align: center;" readonly /></div><div id="konfirmasi"></div><div class="table-responsive" style="overflow-x: auto; -webkit-overflow-scrolling: touch; border: none; margin-bottom: 12px;"><table class="table table-bordered table-hover" style="min-width: 600px; margin-bottom: 0;"><thead><tr><th width="40%">Nama Barang</th><th width="25%">Jumlah Barang</th><th width="35%">Catatan</th></tr></thead><tbody id="itemlistedit">';
 				if (jml_data > 0) {
 					$.each(data.data, function(i, item) {
 							hate += '<tr id="'+item.id+'tr"> '+
-                              '<td width="40%"><input type="text"  class="input-block-level"  value="'+item.nama_barang+'" readonly/><input type="hidden" name="nama_input['+item.id+']" id="'+item.id+'" class="input-block-level" value="'+item.kode_jenisbarang+'-'+item.kode_subjenisbarang+'" ></td>'+
-							  '<td width="40%"><input name="jumlah_input['+item.id+']" class="input-block-level" value="'+item.jumlah_permintaan+'" readonly/></td>'+
-                              '<td width="200px"><input type="text"  class="input-block-level"  id="catatan_input['+item.id+']" name="catatan_input['+item.id+']" value="'+item.catatan+'" readonly/></td>'+
+                              '<td width="40%"><input type="text" class="form-control" value="'+item.nama_barang+'" readonly/><input type="hidden" name="nama_input['+item.id+']" id="'+item.id+'" class="form-control" value="'+item.kode_jenisbarang+'-'+item.kode_subjenisbarang+'" ></td>'+
+							  '<td width="25%"><input name="jumlah_input['+item.id+']" class="form-control" value="'+item.jumlah_permintaan+'" readonly/></td>'+
+                              '<td width="35%"><input type="text" class="form-control" id="catatan_input['+item.id+']" name="catatan_input['+item.id+']" value="'+(item.catatan || '-')+'" readonly/></td>'+
                               '</tr>';
-						
-							//hate += '<label><input type="checkbox" value="'+item.id+'" name="id_list[]"> &nbsp;'+item.nama_barang+'</label> &nbsp;&nbsp; ';
 					});				
 				} else {
-					hate += 'Barang Sudah Diserahkan Semua';
+					hate += '<tr><td colspan="3" class="text-center" style="padding: 20px; color: #64748b;">Barang Sudah Diserahkan Semua</td></tr>';
 				}
-				hate += '</tbody></table><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button></div></form></div></div></div></div>';
+				hate += '</tbody></table></div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Tutup</button></div></form></div></div></div></div>';
 				$("#tampilkan_modal").html(hate);
 				$("#m_permintaan_edit").modal('show');
 			} else {
@@ -554,4 +517,101 @@ function m_barang_stok_s() {
 		}
 	});
 	return false;
-}		
+}
+
+/* =========================================================================
+   Universal Touch & Drag-to-Scroll Enhancement for Tables & Navbars
+   Memungkinkan swipe/drag langsung pada tabel di SEMUA ROLE tanpa harus klik scrollbar kecil
+   ========================================================================= */
+function enableDragToScroll(selector) {
+  $(selector).each(function () {
+    var slider = this;
+    if ($(slider).data('dragScrollActive')) return;
+    $(slider).data('dragScrollActive', true);
+
+    var isDown = false;
+    var startX;
+    var scrollLeft;
+    var isMoved = false;
+
+    $(slider).addClass('drag-scrollable');
+
+    $(slider).on('mousedown', function (e) {
+      if ($(e.target).closest('a, button, input, select, textarea, .btn, .select2').length) {
+        return;
+      }
+      isDown = true;
+      isMoved = false;
+      $(slider).addClass('active-dragging');
+      startX = e.pageX;
+      scrollLeft = slider.scrollLeft;
+    });
+
+    $(document).on('mousemove', function (e) {
+      if (!isDown) return;
+      var currentX = e.pageX;
+      var walk = (currentX - startX) * 1.3;
+      if (Math.abs(walk) > 4) {
+        isMoved = true;
+        e.preventDefault();
+      }
+      slider.scrollLeft = scrollLeft - walk;
+    });
+
+    $(document).on('mouseup', function () {
+      if (isDown) {
+        isDown = false;
+        $(slider).removeClass('active-dragging');
+      }
+    });
+
+    // Cegah trigger aksi link/click saat user sedang melakukan drag geser
+    $(slider).on('click', function (e) {
+      if (isMoved) {
+        e.preventDefault();
+        e.stopPropagation();
+        isMoved = false;
+      }
+    });
+  });
+}
+
+function initUniversalTableScroll() {
+  // Pastikan semua tabel data di SEMUA ROLE otomatis dibungkus container table-responsive
+  $('table:not(.table-form, .table-no-responsive)').each(function () {
+    var $tbl = $(this);
+    if (!$tbl.parent().hasClass('table-responsive')) {
+      $tbl.wrap('<div class="table-responsive" style="display: block; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border: none; margin-bottom: 12px;"></div>');
+    }
+  });
+
+  enableDragToScroll('.table-responsive, .simantik-nav-links, .scroll');
+}
+
+$(document).ready(function () {
+  initUniversalTableScroll();
+
+  // Trigger ulang saat ada AJAX yang selesai me-render tabel/modal baru
+  $(document).ajaxComplete(function () {
+    initUniversalTableScroll();
+  });
+
+  // Trigger ulang bila ada tab bootstrap yang berganti (misal di Kelola Permintaan)
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
+    initUniversalTableScroll();
+  });
+
+  // Trigger ulang bila modal terbuka
+  $(document).on('shown.bs.modal', function () {
+    initUniversalTableScroll();
+  });
+
+  // Auto-scroll navbar item aktif jika navbar dalam mode scroll horizontal (misal di tablet)
+  var navLinks = document.querySelector('.simantik-nav-links');
+  var activeNavItem = document.querySelector('.simantik-nav-links .simantik-nav-item.active');
+  if (navLinks && navLinks.scrollWidth > navLinks.clientWidth && activeNavItem && typeof activeNavItem.scrollIntoView === 'function') {
+    setTimeout(function () {
+      activeNavItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }, 250);
+  }
+});		

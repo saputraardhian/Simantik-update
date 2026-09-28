@@ -44,13 +44,14 @@
         <h4><i class="fa-solid fa-clock-rotate-left" style="color: var(--primary);"></i> Riwayat Permintaan Barang Saya</h4>
       </div>
       <div class="panel-body" style="padding: 0;">
-        <table class="table table-hover" style="margin-bottom: 0;">
+        <div class="table-responsive" style="display: block; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border: none; margin-bottom: 0;">
+          <table class="table table-hover" style="margin-bottom: 0; width: 100%; min-width: 620px; max-width: none; white-space: nowrap;">
           <thead>
             <tr>
-              <th width="8%" class="ctr">No</th>
-              <th width="42%">Kode Permintaan</th>
-              <th width="25%">Status</th>
-              <th width="25%" class="ctr">Aksi</th>
+              <th style="width: 50px; min-width: 50px;" class="ctr">No</th>
+              <th style="width: 170px; min-width: 170px;">Kode Permintaan</th>
+              <th style="width: 210px; min-width: 210px;">Status</th>
+              <th style="width: 190px; min-width: 190px;" class="ctr">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -88,7 +89,7 @@
                       <i class="fa-solid fa-trash-can"></i> Hapus
                     </a>
 
-                    <a href="<?php echo base_url(); ?>adm/cetak_formpermintaan/<?php echo $d->id_permintaan; ?>" class="btn btn-outline-warning btn-xs" target="_blank" title="Cetak Bukti">
+                    <a href="javascript:void(0)" onclick="return preview_cetak('<?php echo $d->id_permintaan; ?>');" class="btn btn-outline-warning btn-xs" title="Pratinjau & Cetak Formulir">
                       <i class="fa-solid fa-print"></i> Cetak
                     </a>
                   </div>
@@ -108,6 +109,7 @@
             <?php } ?>
           </tbody>
         </table>
+        </div>
       </div>
     </div>
 
@@ -117,7 +119,7 @@
         <h4><i class="fa-solid fa-cart-plus" style="color: var(--primary);"></i> Form Pengajuan Permintaan Barang Baru</h4>
         <div class="panel-action">
           <button type="button" class="btn btn-success btn-sm" onclick="additem();" id="btn-tambah-baris">
-            <i class="fa-solid fa-plus"></i> Tambah Jenis Barang
+            <i class="fa-solid fa-plus"></i> Jenis Barang
           </button>
         </div>
       </div>
@@ -145,10 +147,10 @@
             
             <div style="display: flex; gap: 10px;">
               <button type="button" class="btn btn-default" onclick="additem();">
-                <i class="fa-solid fa-plus"></i> Tambah Baris
+                <i class="fa-solid fa-plus"></i> Tambah Jenis Barang
               </button>
-              <button type="submit" name="submit" id="btn-simpan" class="btn btn-primary" style="padding: 10px 24px; font-size: 14px;">
-                <i class="fa-solid fa-paper-plane"></i> Kirim Pengajuan Permintaan
+              <button type="submit" name="submit" id="btn-simpan" class="btn btn-primary" style="padding: 10px 28px; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-floppy-disk"></i> Simpan
               </button>
             </div>
           </div>
@@ -374,7 +376,7 @@
 
     if (isAllValid) {
       submitBtn.prop('disabled', false);
-      hintEl.html('<span style="color: #10b981;"><i class="fa-solid fa-circle-check"></i> Seluruh barang tersedia dan siap diajukan.</span>');
+      hintEl.html('<span style="color: #10b981;"><i class="fa-solid fa-circle-check"></i> Seluruh barang tersedia dan siap disimpan.</span>');
     } else {
       submitBtn.prop('disabled', true);
       hintEl.html('<span style="color: #ef4444;"><i class="fa-solid fa-circle-exclamation"></i> ' + errorMessage + '</span>');
@@ -389,7 +391,7 @@
     $('#form_permintaan').on('submit', function (e) {
       if ($('#btn-simpan').prop('disabled')) {
         e.preventDefault();
-        alert('Pengajuan belum dapat dikirim karena ada barang yang melebihi stok atau belum lengkap.');
+        alert('Pengajuan belum dapat disimpan karena ada barang yang melebihi stok atau belum lengkap.');
         return false;
       }
     });

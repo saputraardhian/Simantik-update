@@ -22,12 +22,7 @@ class Adm extends CI_Controller {
 		$a['sess_level'] = $this->session->userdata('admin_level');
 		$a['sess_user'] = $this->session->userdata('admin_user');
 		$a['sess_nip'] = $this->session->userdata('admin_nip');
-		
 		$a['p']			= "v_main";
-
-		if ($a['sess_level'] == "siswa") {
-			$a['p_mapel']	= $this->db->query("SELECT m_mapel.nama FROM tr_siswa_mapel INNER JOIN m_mapel ON tr_siswa_mapel.id_mapel = m_mapel.id WHERE tr_siswa_mapel.id_siswa = '".$a['sess_konid']."'")->result();
-		}
 		
 		$this->load->view('aaa', $a);
 	}
@@ -594,8 +589,9 @@ class Adm extends CI_Controller {
 		$uri3 = mysql_real_escape_string($this->uri->segment(3));
 		$uri4 = mysql_real_escape_string($this->uri->segment(4));
 
+		$a['id_permintaan'] = $uri3;
 		$a['permintaan_barang'] = $this->db->query("SELECT t.*,b.* from t_permintaan_barang t left join m_barang b on t.kode_jenisbarang=b.kode_jenisbarang AND t.kode_subjenisbarang=b.kode_subjenisbarang where t.id_permintaan='$uri3'")->result();
-		$a['datayangmengajukan'] = $this->db->query("select t.nip_pegawai,p.nama from  t_permintaan_barang t left join m_pegawai p on t.nip_pegawai = p.nip where t.id_permintaan='$uri3' LIMIT 1")->row();
+		$a['datayangmengajukan'] = $this->db->query("SELECT t.nip_pegawai, p.nama, p.id_unitkerja, u.unitkerja FROM t_permintaan_barang t LEFT JOIN m_pegawai p ON t.nip_pegawai = p.nip LEFT JOIN m_unitkerja u ON p.id_unitkerja = u.id_unitkerja WHERE t.id_permintaan='$uri3' LIMIT 1")->row();
 		$a['qtgl_permintaan']=$this->db->query("select date(tgl_permintaan) as tgl_permintaan from t_permintaan_barang where id_permintaan='$uri3' LIMIT 1")->row();
 		$this->load->view("v_cetak_formpermintaan", $a);
 	}

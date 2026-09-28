@@ -1,4 +1,5 @@
-<div class="row col-md-12">
+<div class="row">
+  <div class="col-md-12">
   <div class="panel panel-info">
     <div class="panel-heading">Master Barang
       <div class="tombol-kanan">
@@ -6,17 +7,16 @@
         <a class="btn btn-success btn-sm tombol-kanan" href="#" onclick="return m_barang_e(0);"><i class="glyphicon glyphicon-plus"></i> &nbsp;&nbsp;Tambah Barang</a>
       </div>
     </div>
-    <div class="panel-body">
-
-
-      <table class="table table-bordered">
+    <div class="panel-body" style="padding: 0;">
+      <div class="table-responsive" style="display: block; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border: none; margin-bottom: 0;">
+        <table class="table table-bordered table-hover" style="margin-bottom: 0; width: 100%; min-width: 680px; max-width: none; white-space: nowrap;">
         <thead>
           <tr>
-            <th width="5%">No</th>
-			<th width="15%">Kode Barang</th>
-            <th width="45%">Nama Barang</th>
-            <th width="20%">Stok Barang</th>
-            <th width="25%">Aksi</th>
+            <th style="width: 50px; min-width: 50px;" class="ctr">No</th>
+            <th style="width: 150px; min-width: 150px;">Kode Barang</th>
+            <th style="min-width: 220px;">Nama Barang</th>
+            <th style="width: 140px; min-width: 140px;">Stok Barang</th>
+            <th style="width: 140px; min-width: 140px;" class="ctr">Aksi</th>
           </tr>
         </thead>
 
@@ -30,7 +30,7 @@
 					  <td>'.$d->kode_jenisbarang.' '.$d->kode_subjenisbarang.'</td>
                       <td>'.$d->nama_barang.'</td>
                       <td>'.$d->stok_barang.' '.$d->satuan.'</td>
-                      <td class="">
+                      <td class="ctr">
                         <div class="btn-group">
                           <a href="#" onclick="return m_barang_e('.$d->id.');" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Edit</a>
                           <a href="#" onclick="return m_barang_h('.$d->id.');" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Hapus</a>
@@ -53,7 +53,7 @@
           ?>
         </tbody>
       </table>
-    
+      </div>
       </div>
     </div>
   </div>
@@ -119,7 +119,9 @@
 					<!--<a class="btn btn-success btn-sm " onclick="additem(); return false"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;Tambah Barang</a>-->
                     <br>
 					&nbsp;&nbsp;
-					<table class="table table-condensed">
+					<div class="table-responsive" style="overflow-x: auto; -webkit-overflow-scrolling: touch; border: none; margin-bottom: 12px; padding: 0 10px;">
+					<table class="table table-condensed" style="margin-bottom: 0; min-width: 620px;">
+						<thead>
 						<tr>
 							 <th width="30%"> Nama Barang</th>
 							 <th width="20%"> Jumlah Barang Diterima</th>
@@ -127,6 +129,7 @@
 							 <th width="20%"> Nilai Penerimaan</th>
 							 <th width="10%"> Action </th>
 						</tr>
+						</thead>
                         <!--elemet sebagai target append-->
                         <tbody id="itemlist_stock">
 							
@@ -153,6 +156,7 @@
                             ?>
                         </tbody>
                     </table>
+					</div>
                     &nbsp;&nbsp;<button type="submit" name="submit" class="btn btn-small btn-primary">Simpan</button>
 					<br><br>
                 </form>        

@@ -74,7 +74,8 @@ function OnSelectionChange()
 ?>
 
 
-<div class="row col-md-12">
+<div class="row">
+  <div class="col-md-12">
   <div class="panel panel-info">
     <div class="panel-heading">Rekap Permintaan Alat Tulis/Alat Rumah Tangga Kantor
      <!-- <div class="tombol-kanan">
@@ -174,7 +175,7 @@ function OnSelectionChange()
 		<tr>
 			<td colspan="5">
 			<button class="btn btn-primary btn-sm" tabindex="24" onclick="OnSelectionChange()" > Tampilkan Laporan</button>
-			<a href="<?php echo base_url();?>adm/cetaklaporankumulatif/<?php echo $uri3;?>/<?php echo $uri4;?>/<?php echo $uri5;?>/<?php echo $uri6;?>" class="btn btn-danger btn-sm" target="_blank"><i class="glyphicon glyphicon-print"></i> Cetak Laporan</a>
+			<button type="button" class="btn btn-danger btn-sm" onclick="return preview_url('<?php echo base_url();?>adm/cetaklaporankumulatif/<?php echo $uri3;?>/<?php echo $uri4;?>/<?php echo $uri5;?>/<?php echo $uri6;?>', 'Pratinjau Rekap Laporan Kumulatif');"><i class="glyphicon glyphicon-print"></i> Cetak Laporan</button>
 			</td>
 		</tr>
 		
@@ -195,53 +196,63 @@ function OnSelectionChange()
 					<div class="page">
 						<div class="subpage">
 												
-							<table class="table table-bordered table-hover">
+							<div class="table-responsive" style="display: block; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border: none; margin-bottom: 24px;">
+							<table class="table table-bordered table-hover" style="margin-bottom: 0; width: 100%; min-width: 600px; max-width: none; white-space: nowrap;">
+								<thead>
 								<tr>
-								<th align="center" width="5%">No.</th>
-								<th align="center" width="10%">Kode_Barang</th>
-								<th align="center" width="30%">Nama Barang</th>
-								<th align="center" width="10%">Masuk</th>
-								
+								<th style="width: 60px; min-width: 60px;" class="ctr">No.</th>
+								<th style="width: 170px; min-width: 170px;">Kode Barang</th>
+								<th style="min-width: 250px;">Nama Barang</th>
+								<th style="width: 120px; min-width: 120px;" class="ctr">Masuk</th>
 								</tr>
+								</thead>
+								<tbody>
 							<?php
 							$no=1;
 							foreach ($datarekapmasuk as $b) {
 							?>
 								<tr>
-								<td  align="center"><?php echo $no;?></td>
-								<td  align="left"><?php echo $b->kode_jenisbarang.'-'.$b->kode_subjenisbarang;?></td>
-								<td  align="left"><?php echo $b->nama_barang;?></td>
-								<td  align="center"><?php echo $b->jmlh_masuk;?></td>
-							
+								<td class="ctr"><?php echo $no;?></td>
+								<td><?php echo $b->kode_jenisbarang.'-'.$b->kode_subjenisbarang;?></td>
+								<td><?php echo $b->nama_barang;?></td>
+								<td class="ctr" style="font-weight: 700; color: #16a34a;"><?php echo $b->jmlh_masuk;?></td>
 								</tr>
 								<?php
 								$no++;
 							}
 							?>
+								</tbody>
 							</table>
+							</div>
 							
-							<table class="table table-bordered table-hover">
+							<div class="table-responsive" style="display: block; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border: none; margin-bottom: 10px;">
+							<table class="table table-bordered table-hover" style="margin-bottom: 0; width: 100%; min-width: 600px; max-width: none; white-space: nowrap;">
+								<thead>
 								<tr>
-								<th align="center" width="5%">No.</th>
-								<th align="center" width="10%">Kode_Barang</th>
-								<th align="center" width="30%">Nama Barang</th>
-								<th align="center" width="10%">Keluar</th>
+								<th style="width: 60px; min-width: 60px;" class="ctr">No.</th>
+								<th style="width: 170px; min-width: 170px;">Kode Barang</th>
+								<th style="min-width: 250px;">Nama Barang</th>
+								<th style="width: 120px; min-width: 120px;" class="ctr">Keluar</th>
 								</tr>
+								</thead>
+								<tbody>
 							<?php
 							$no=1;
 							foreach ($datarekapkeluar as $d) {
 							?>
 								<tr>
-								<td  align="center"><?php echo $no;?></td>
-								<td  align="left"><?php echo $d->kode_jenisbarang.'-'.$d->kode_subjenisbarang;?></td>
-								<td  align="left"><?php echo $d->nama_barang;?></td>
-								<td  align="center"><?php echo $d->jmlh_keluar;?></td>
+								<td class="ctr"><?php echo $no;?></td>
+								<td><?php echo $d->kode_jenisbarang.'-'.$d->kode_subjenisbarang;?></td>
+								<td><?php echo $d->nama_barang;?></td>
+								<td class="ctr" style="font-weight: 700; color: #dc2626;"><?php echo $d->jmlh_keluar;?></td>
 								</tr>
 								<?php
 								$no++;
 							}
 							?>
+								</tbody>
 							</table>
+							</div>
 						</div>
 					</div>
 					</div>
@@ -257,5 +268,5 @@ function OnSelectionChange()
 	<br>
     </div>
   </div>
-
-                   
+</div>
+</div>
