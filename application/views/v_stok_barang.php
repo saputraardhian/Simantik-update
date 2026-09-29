@@ -98,9 +98,9 @@
               } else {
             ?>
               <tr>
-                <td colspan="7" class="ctr" style="padding: 36px; color: #94a3b8;">
-                  <i class="fa-solid fa-box-open" style="font-size: 36px; margin-bottom: 8px; display: block;"></i>
-                  Belum ada riwayat transaksi penerimaan barang.
+                <td colspan="7" class="ctr" style="padding: 36px; color: #475569;">
+                  <i class="fa-solid fa-box-open" style="font-size: 36px; margin-bottom: 8px; display: block; color: #94a3b8;"></i>
+                  <span style="font-size: 13.5px; font-weight: 500;">Belum ada riwayat transaksi penerimaan barang.</span>
                 </td>
               </tr>
             <?php } ?>

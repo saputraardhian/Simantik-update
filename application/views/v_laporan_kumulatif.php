@@ -77,11 +77,7 @@ function OnSelectionChange()
 <div class="row">
   <div class="col-md-12">
   <div class="panel panel-info">
-    <div class="panel-heading">Rekap Permintaan Alat Tulis/Alat Rumah Tangga Kantor
-     <!-- <div class="tombol-kanan">
-        <a class="btn btn-success btn-sm tombol-kanan" href="#" onclick="return m_siswa_e(0);"><i class="glyphicon glyphicon-plus"></i> &nbsp;&nbsp;Tambah</a>
-      </div>-->
-    </div>
+    <div class="panel-heading">Rekap Permintaan Alat Tulis/Alat Rumah Tangga Kantor</div>
 	
 	
 	<div class="panel-body">

@@ -31,25 +31,22 @@
                       <td>'.$d->username.'</td>
                       <td class="ctr">
                         <div class="btn-group">
-                          <a href="#" onclick="return m_pegawai_e('.$d->id.');" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Edit</a>
-                          <a href="#" onclick="return m_pegawai_h('.$d->id.');" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Hapus</a>
-                         
-                          ';
-              //  <a href="#" onclick="return m_siswa_matkul('.$d->id.');" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-th-list" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Mata Kuliah</a>
-
-			//  if ($d->ada == "0") {
-                //  echo '        <a href="#" onclick="return m_siswa_u('.$d->id.');" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-user" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Aktifkan User</a>';
-               // } 
-                  
-                
-                echo '</div>
+                          <a href="#" role="button" onclick="return m_pegawai_e('.$d->id.');" class="btn btn-info btn-xs" title="Edit Pegawai"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Edit</a>
+                          <a href="#" role="button" onclick="return m_pegawai_h('.$d->id.');" class="btn btn-danger btn-xs" title="Hapus Pegawai"><i class="glyphicon glyphicon-remove" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Hapus</a>
+                        </div>
                       </td>
-                      </tr>
-                      ';
-              $no++;
+                      </tr>';
+                $no++;
               }
-            }
-          ?>
+            } else {
+            ?>
+              <tr>
+                <td colspan="5" class="ctr" style="padding: 32px; color: #475569;">
+                  <i class="fa-solid fa-users" style="font-size: 32px; margin-bottom: 8px; display: block; color: #94a3b8;"></i>
+                  <span style="font-size: 13.5px; font-weight: 500;">Belum ada data master pegawai.</span>
+                </td>
+              </tr>
+            <?php } ?>
         </tbody>
       </table>
       </div>

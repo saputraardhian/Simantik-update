@@ -51,13 +51,6 @@ function rubah_password_s() {
 	return false;
 }
 
-$("#pilih_mapel").change(function() {
-	var id_mapel = this.value;
-	window.location.assign(base_url+"adm/m_soal/pilih_mapel/"+id_mapel); 
-});
-
-
-
 //barang
 function m_barang_e(id) {
 	$("#m_barang").modal('show');
@@ -91,14 +84,16 @@ function m_barang_s() {
 		if (response.status == "ok") {
 			window.location.assign(base_url+"adm/m_barang"); 
 		} else {
-			console.log('gagal');
+			alert(response.msg || 'Gagal menyimpan data barang. Silakan periksa kembali isian form.');
 		}
+	}).fail(function() {
+		alert('Terjadi kesalahan jaringan atau server saat menyimpan data.');
 	});
 	return false;
 }
 
 function m_barang_h(id) {
-	if (confirm('Anda yakin..?')) {
+	if (confirm('Anda yakin ingin menghapus data ini?')) {
 		$.ajax({
 			type: "GET",
 			url: base_url+"adm/m_barang/hapus/"+id,
@@ -106,9 +101,11 @@ function m_barang_h(id) {
 				if (response.status == "ok") {
 					window.location.assign(base_url+"adm/m_barang"); 
 				} else {
-					console.log('gagal');
+					alert(response.msg || 'Gagal menghapus data barang.');
 				}
 			}
+		}).fail(function() {
+			alert('Terjadi kesalahan jaringan saat menghapus data.');
 		});
 	}
 	return false;
@@ -155,14 +152,16 @@ function m_pegawai_s() {
 		if (response.status == "ok") {
 			window.location.assign(base_url+"adm/m_pegawai"); 
 		} else {
-			console.log('gagal');
+			alert(response.msg || 'Gagal menyimpan data pegawai. Silakan periksa kembali isian form.');
 		}
+	}).fail(function() {
+		alert('Terjadi kesalahan jaringan atau server saat menyimpan data.');
 	});
 	return false;
 }
 
 function m_pegawai_h(id) {
-	if (confirm('Anda yakin..?')) {
+	if (confirm('Anda yakin ingin menghapus data pegawai ini?')) {
 		$.ajax({
 			type: "GET",
 			url: base_url+"adm/m_pegawai/hapus/"+id,
@@ -170,9 +169,11 @@ function m_pegawai_h(id) {
 				if (response.status == "ok") {
 					window.location.assign(base_url+"adm/m_pegawai"); 
 				} else {
-					console.log('gagal');
+					alert(response.msg || 'Gagal menghapus data pegawai.');
 				}
 			}
+		}).fail(function() {
+			alert('Terjadi kesalahan jaringan saat menghapus data.');
 		});
 	}
 	return false;
@@ -194,8 +195,10 @@ function m_permintaan_s() {
 		if (response.status == "ok") {
 			window.location.assign(base_url+"adm/permintaan_barang"); 
 		} else {
-			console.log('gagal');
+			alert(response.msg || 'Gagal menyimpan pengajuan permintaan barang.');
 		}
+	}).fail(function() {
+		alert('Terjadi kesalahan jaringan atau server saat menyimpan pengajuan.');
 	});
 	return false;
 }

@@ -76,20 +76,20 @@
                 <td class="ctr">
                   <div class="btn-group" style="display: inline-flex; gap: 6px;">
                     <?php if (!$isDiserahkan): ?>
-                      <a href="#" onclick="return m_permintaan_e('<?php echo $d->id_permintaan; ?>');" class="btn btn-outline-primary btn-xs" title="Ubah Pengajuan">
+                      <a href="#" role="button" onclick="return m_permintaan_e('<?php echo $d->id_permintaan; ?>');" class="btn btn-outline-primary btn-xs" title="Ubah Pengajuan">
                         <i class="fa-solid fa-pen-to-square"></i> Ubah
                       </a>
                     <?php else: ?>
-                      <a href="#" onclick="return m_permintaan_v('<?php echo $d->id_permintaan; ?>');" class="btn btn-outline-primary btn-xs" title="Lihat Rincian">
+                      <a href="#" role="button" onclick="return m_permintaan_v('<?php echo $d->id_permintaan; ?>');" class="btn btn-outline-primary btn-xs" title="Lihat Rincian">
                         <i class="fa-solid fa-eye"></i> Detail
                       </a>
                     <?php endif; ?>
 
-                    <a href="#" onclick="return m_permintaan_h('<?php echo $d->id_permintaan; ?>');" class="btn btn-outline-danger btn-xs" title="Hapus Pengajuan">
+                    <a href="#" role="button" onclick="return m_permintaan_h('<?php echo $d->id_permintaan; ?>');" class="btn btn-outline-danger btn-xs" title="Hapus Pengajuan">
                       <i class="fa-solid fa-trash-can"></i> Hapus
                     </a>
 
-                    <a href="javascript:void(0)" onclick="return preview_cetak('<?php echo $d->id_permintaan; ?>');" class="btn btn-outline-warning btn-xs" title="Pratinjau & Cetak Formulir">
+                    <a href="javascript:void(0)" role="button" onclick="return preview_cetak('<?php echo $d->id_permintaan; ?>');" class="btn btn-outline-warning btn-xs" title="Pratinjau & Cetak Formulir">
                       <i class="fa-solid fa-print"></i> Cetak
                     </a>
                   </div>
@@ -101,9 +101,9 @@
               } else {
             ?>
               <tr>
-                <td colspan="4" class="ctr" style="padding: 30px; color: #94a3b8;">
-                  <i class="fa-solid fa-box-open" style="font-size: 32px; margin-bottom: 8px; display: block;"></i>
-                  Belum ada riwayat permintaan barang.
+                <td colspan="4" class="ctr" style="padding: 30px; color: #475569;">
+                  <i class="fa-solid fa-box-open" style="font-size: 32px; margin-bottom: 8px; display: block; color: #94a3b8;"></i>
+                  <span style="font-size: 13.5px; font-weight: 500;">Belum ada riwayat permintaan barang.</span>
                 </td>
               </tr>
             <?php } ?>

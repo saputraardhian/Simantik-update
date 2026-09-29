@@ -630,13 +630,45 @@ label {
 
 .btn-outline-warning {
   background: transparent !important;
-  border: 1px solid #fde68a !important;
-  color: #d97706 !important;
-}
-.btn-outline-warning:hover {
-  background: #fef3c7 !important;
-  border-color: #fcd34d !important;
+  border: 1px solid #fcd34d !important;
   color: #b45309 !important;
+}
+.btn-outline-warning:hover,
+.btn-outline-warning:focus {
+  background: #fef3c7 !important;
+  border-color: #f59e0b !important;
+  color: #92400e !important;
+}
+
+/* Accessible focus rings (WCAG AA & anti-slop R-32) */
+:focus-visible {
+  outline: 2px solid var(--primary) !important;
+  outline-offset: 2px !important;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--primary) !important;
+  outline-offset: 2px !important;
+}
+
+/* Mobile ergonomics: Minimum tap targets (anti-slop R-03) */
+@media (max-width: 768px) {
+  .btn-group .btn-xs,
+  .table .btn-xs {
+    min-height: 38px;
+    padding: 7px 12px !important;
+    font-size: 12px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px;
+    border-radius: 7px !important;
+  }
 }
 
 /* --- Modern Table Styling --- */

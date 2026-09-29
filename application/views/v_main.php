@@ -311,9 +311,9 @@ $banner_img = file_exists(FCPATH . '___/img/banner.png') ? '___/img/banner.png' 
                 } else {
               ?>
                 <tr>
-                  <td colspan="<?php echo ($sess_level != 'user') ? '5' : '4'; ?>" class="ctr" style="padding: 30px; color: #94a3b8;">
-                    <i class="fa-solid fa-box-open" style="font-size: 30px; margin-bottom: 8px; display: block;"></i>
-                    Belum ada riwayat aktivitas permintaan barang.
+                  <td colspan="<?php echo ($sess_level != 'user') ? '5' : '4'; ?>" class="ctr" style="padding: 30px; color: #475569;">
+                    <i class="fa-solid fa-box-open" style="font-size: 30px; margin-bottom: 8px; display: block; color: #94a3b8;"></i>
+                    <span style="font-size: 13.5px; font-weight: 500;">Belum ada riwayat aktivitas permintaan barang.</span>
                   </td>
                 </tr>
               <?php } ?>
