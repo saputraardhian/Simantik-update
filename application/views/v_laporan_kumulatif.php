@@ -149,13 +149,13 @@ function OnSelectionChange()
 							$nama_barang_terpilih ='Semua Barang';
 						}
 		                while($p=mysql_fetch_array($query_barang)){
-						if($p[kode_jenisbarang] == $kode_jenisbarang_terpilih && $p[kode_subjenisbarang]== $kode_subjenisbarang_terpilih)
+						if($p['kode_jenisbarang'] == $kode_jenisbarang_terpilih && $p['kode_subjenisbarang']== $kode_subjenisbarang_terpilih)
 						{
 							echo "<option selected value='".$selected_value."'>".$nama_barang_terpilih."</option>\n";
 						}
 						else
 						{
-							echo "<option value='".$p[kode_jenisbarang]."-".$p[kode_subjenisbarang]."'>".$p[nama_barang]."</option>\n";
+							echo "<option value='".$p['kode_jenisbarang']."-".$p['kode_subjenisbarang']."'>".$p['nama_barang']."</option>\n";
 						}
 						}
                         ?>
