@@ -1,21 +1,21 @@
-<div class="row col-md-12">
+<div class="row">
+  <div class="col-md-12">
   <div class="panel panel-info">
     <div class="panel-heading">Master Pegawai
       <div class="tombol-kanan">
         <a class="btn btn-success btn-sm tombol-kanan" href="#" onclick="return m_pegawai_e(0);"><i class="glyphicon glyphicon-plus"></i> &nbsp;&nbsp;Tambah Pegawai</a>
       </div>
     </div>
-    <div class="panel-body">
-
-
-      <table class="table table-bordered">
+    <div class="panel-body" style="padding: 0;">
+      <div class="table-responsive" style="display: block; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border: none; margin-bottom: 0;">
+        <table class="table table-bordered table-hover" style="margin-bottom: 0; width: 100%; min-width: 680px; max-width: none; white-space: nowrap;">
         <thead>
           <tr>
-            <th width="5%">No.</th>
-			<th width="15%">NIP</th>
-            <th width="45%">Nama</th>
-            <th width="20%">Username</th>
-            <th width="25%">Aksi</th>
+            <th style="width: 50px; min-width: 50px;" class="ctr">No.</th>
+            <th style="width: 170px; min-width: 170px;">NIP</th>
+            <th style="min-width: 220px;">Nama</th>
+            <th style="width: 150px; min-width: 150px;">Username</th>
+            <th style="width: 140px; min-width: 140px;" class="ctr">Aksi</th>
           </tr>
         </thead>
 
@@ -29,30 +29,27 @@
 					  <td>'.$d->nip.'</td>
                       <td>'.$d->nama.'</td>
                       <td>'.$d->username.'</td>
-                      <td class="">
+                      <td class="ctr">
                         <div class="btn-group">
-                          <a href="#" onclick="return m_pegawai_e('.$d->id.');" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Edit</a>
-                          <a href="#" onclick="return m_pegawai_h('.$d->id.');" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Hapus</a>
-                         
-                          ';
-              //  <a href="#" onclick="return m_siswa_matkul('.$d->id.');" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-th-list" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Mata Kuliah</a>
-
-			//  if ($d->ada == "0") {
-                //  echo '        <a href="#" onclick="return m_siswa_u('.$d->id.');" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-user" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Aktifkan User</a>';
-               // } 
-                  
-                
-                echo '</div>
+                          <a href="#" role="button" onclick="return m_pegawai_e('.$d->id.');" class="btn btn-info btn-xs" title="Edit Pegawai"><i class="glyphicon glyphicon-pencil" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Edit</a>
+                          <a href="#" role="button" onclick="return m_pegawai_h('.$d->id.');" class="btn btn-danger btn-xs" title="Hapus Pegawai"><i class="glyphicon glyphicon-remove" style="margin-left: 0px; color: #fff"></i> &nbsp;&nbsp;Hapus</a>
+                        </div>
                       </td>
-                      </tr>
-                      ';
-              $no++;
+                      </tr>';
+                $no++;
               }
-            }
-          ?>
+            } else {
+            ?>
+              <tr>
+                <td colspan="5" class="ctr" style="padding: 32px; color: #475569;">
+                  <i class="fa-solid fa-users" style="font-size: 32px; margin-bottom: 8px; display: block; color: #94a3b8;"></i>
+                  <span style="font-size: 13.5px; font-weight: 500;">Belum ada data master pegawai.</span>
+                </td>
+              </tr>
+            <?php } ?>
         </tbody>
       </table>
-    
+      </div>
       </div>
     </div>
   </div>

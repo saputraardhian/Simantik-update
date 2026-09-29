@@ -18,7 +18,7 @@
 <link href="<?php echo base_url(); ?>___/jquery-ui/jquery-ui.css" rel="stylesheet" />
 <link href="<?php echo base_url(); ?>___/css/bootstrap.css" rel="stylesheet">
 <link href="<?php echo base_url(); ?>___/css/select2.min.css" rel="stylesheet" />
-<link href="<?php echo base_url(); ?>___/css/style.css" rel="stylesheet">
+<link href="<?php echo base_url(); ?>___/css/style.css?v=<?php echo time(); ?>" rel="stylesheet">
 
 <!-- Core JS -->
 <script src="<?php echo base_url(); ?>___/js/jquery-1.11.3.min.js"></script>
@@ -128,53 +128,54 @@ $menu = array();
 
 if ($sess_level == "user") {
   $menu = array(
-    array("key"=>"dashboard", "url"=>"", "text"=>"Dashboard"),
-    array("key"=>"permintaan_barang", "url"=>"permintaan_barang", "text"=>"Ajukan Permintaan"),
+    array("key"=>"dashboard", "url"=>"", "text"=>"Dashboard", "short"=>"Dashboard"),
+    array("key"=>"permintaan_barang", "url"=>"permintaan_barang", "text"=>"Ajukan Permintaan", "short"=>"Ajukan"),
   );
 } else if ($sess_level == "admin_tu") {
   $menu = array(
-    array("key"=>"dashboard", "url"=>"", "text"=>"Dashboard"),
-    array("key"=>"m_barang", "url"=>"m_barang", "text"=>"Master Barang"),
-    array("key"=>"stok_barang", "url"=>"stok_barang", "text"=>"Stok Barang"),
-    array("key"=>"permintaan_barang", "url"=>"permintaan_barang", "text"=>"Ajukan Permintaan"),
-    array("key"=>"kelola_permintaan_barang", "url"=>"kelola_permintaan_barang", "text"=>"Kelola Permintaan"),
-    array("key"=>"laporan_kumulatif", "url"=>"laporan_kumulatif", "text"=>"Laporan"),
+    array("key"=>"dashboard", "url"=>"", "text"=>"Dashboard", "short"=>"Dashboard"),
+    array("key"=>"m_barang", "url"=>"m_barang", "text"=>"Master Barang", "short"=>"Barang"),
+    array("key"=>"stok_barang", "url"=>"stok_barang", "text"=>"Stok Barang", "short"=>"Stok"),
+    array("key"=>"permintaan_barang", "url"=>"permintaan_barang", "text"=>"Ajukan Permintaan", "short"=>"Ajukan"),
+    array("key"=>"kelola_permintaan_barang", "url"=>"kelola_permintaan_barang", "text"=>"Kelola Permintaan", "short"=>"Kelola"),
+    array("key"=>"laporan_kumulatif", "url"=>"laporan_kumulatif", "text"=>"Laporan", "short"=>"Laporan"),
   );
 } else if ($sess_level == "admin") {
   $menu = array(
-    array("key"=>"dashboard", "url"=>"", "text"=>"Dashboard"),
-    array("key"=>"m_barang", "url"=>"m_barang", "text"=>"Master Barang"),
-    array("key"=>"m_pegawai", "url"=>"m_pegawai", "text"=>"Master Pegawai"),
-    array("key"=>"stok_barang", "url"=>"stok_barang", "text"=>"Stok Barang"),
-    array("key"=>"permintaan_barang", "url"=>"permintaan_barang", "text"=>"Ajukan Permintaan"),
-    array("key"=>"kelola_permintaan_barang", "url"=>"kelola_permintaan_barang", "text"=>"Kelola Permintaan"),
-    array("key"=>"laporan_kumulatif", "url"=>"laporan_kumulatif", "text"=>"Laporan"),
+    array("key"=>"dashboard", "url"=>"", "text"=>"Dashboard", "short"=>"Dashboard"),
+    array("key"=>"m_barang", "url"=>"m_barang", "text"=>"Master Barang", "short"=>"Barang"),
+    array("key"=>"m_pegawai", "url"=>"m_pegawai", "text"=>"Master Pegawai", "short"=>"Pegawai"),
+    array("key"=>"stok_barang", "url"=>"stok_barang", "text"=>"Stok Barang", "short"=>"Stok"),
+    array("key"=>"permintaan_barang", "url"=>"permintaan_barang", "text"=>"Ajukan Permintaan", "short"=>"Ajukan"),
+    array("key"=>"kelola_permintaan_barang", "url"=>"kelola_permintaan_barang", "text"=>"Kelola Permintaan", "short"=>"Kelola"),
+    array("key"=>"laporan_kumulatif", "url"=>"laporan_kumulatif", "text"=>"Laporan", "short"=>"Laporan"),
   );
 } else {
   $menu = array(
-    array("key"=>"dashboard", "url"=>"", "text"=>"Dashboard")
+    array("key"=>"dashboard", "url"=>"", "text"=>"Dashboard", "short"=>"Dashboard")
   );
 }
 ?>
 
-<div class="container simantik-main-container">
+<div class="container simantik-main-container" style="margin-top: 74px;">
 
-  <!-- Sleek Horizontal Navigation Bar -->
+  <!-- Sleek Responsive Navigation Bar -->
   <div class="simantik-nav-wrapper">
-    <div class="simantik-nav-links">
+    <div class="simantik-nav-links nav-count-<?php echo count($menu); ?>">
       <?php 
       foreach ($menu as $m) {
         $isActive = ($uri2 == $m['url']);
         $activeClass = $isActive ? 'active' : '';
+        $shortText = isset($m['short']) ? $m['short'] : $m['text'];
         echo '<a href="'.base_url().'adm/'.$m['url'].'" class="simantik-nav-item '.$activeClass.'">';
         echo getNavSvgIcon($m['key']);
-        echo '<span>'.$m['text'].'</span>';
+        echo '<span class="nav-label-desktop hidden-xs">'.$m['text'].'</span>';
+        echo '<span class="nav-label-mobile visible-xs-inline">'.$shortText.'</span>';
         echo '</a>';
       }
       ?>
     </div>
     <div class="simantik-nav-extra hidden-xs">
-      <span class="nav-system-status"><span class="status-indicator-dot"></span> Sistem Aktif</span>
       <span class="nav-date-display"><i class="fa-regular fa-calendar-days"></i> <?php 
         $hari_arr = array('Sunday'=>'Minggu','Monday'=>'Senin','Tuesday'=>'Selasa','Wednesday'=>'Rabu','Thursday'=>'Kamis','Friday'=>'Jumat','Saturday'=>'Sabtu');
         $bulan_arr = array('01'=>'Januari','02'=>'Februari','03'=>'Maret','04'=>'April','05'=>'Mei','06'=>'Juni','07'=>'Juli','08'=>'Agustus','09'=>'September','10'=>'Oktober','11'=>'November','12'=>'Desember');
@@ -198,11 +199,84 @@ if ($sess_level == "user") {
   <!-- Container Modal -->
   <div id="tampilkan_modal"></div>
 
+  <!-- Modal Global Pratinjau Form Permintaan (Preview Langsung Tanpa Buka Tab Baru) -->
+  <div class="modal fade" id="modalPreviewCetak" tabindex="-1" role="dialog" aria-labelledby="modalPreviewCetakLabel">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 860px;">
+      <div class="modal-content" style="border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.25); border: 1px solid #e2e8f0;">
+        <div class="modal-header" style="background: #ffffff; padding: 14px 20px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between;">
+          <h4 class="modal-title" id="modalPreviewCetakLabel" style="font-size: 15px; font-weight: 700; color: #0f172a; margin: 0;">
+            <i class="fa-solid fa-file-lines" style="color: var(--primary);"></i> Pratinjau Formulir Permintaan Barang
+          </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size: 24px; opacity: 0.7;">&times;</button>
+        </div>
+        <div class="modal-body" style="padding: 0; background: #f8fafc; position: relative;">
+          <div id="loadingPreviewCetak" style="padding: 60px 20px; text-align: center; color: #64748b;">
+            <i class="fa-solid fa-spinner fa-spin" style="font-size: 32px; color: var(--primary); margin-bottom: 12px; display: block;"></i>
+            <span style="font-size: 14px; font-weight: 500;">Memuat pratinjau dokumen...</span>
+          </div>
+          <iframe id="iframePreviewCetak" src="" style="width: 100%; height: 70vh; min-height: 480px; border: none; display: none; background: #ffffff;"></iframe>
+        </div>
+        <div class="modal-footer" style="padding: 12px 20px; background: #ffffff; border-top: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between;">
+          <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+            <i class="fa-solid fa-xmark"></i> Tutup
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="printPreviewIframe();" style="display: inline-flex; align-items: center; gap: 6px; padding: 7px 18px; font-weight: 600;">
+            <i class="fa-solid fa-print"></i> Cetak / Simpan PDF
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  function preview_cetak(id) {
+    var url_preview = base_url + 'adm/cetak_formpermintaan/' + encodeURIComponent(id) + '?preview=1';
+    
+    $('#loadingPreviewCetak').show();
+    $('#iframePreviewCetak').hide().attr('src', url_preview);
+    $('#modalPreviewCetakLabel').html('<i class="fa-solid fa-file-lines" style="color: var(--primary);"></i> Pratinjau Formulir Permintaan: <strong>' + id + '</strong>');
+    $('#modalPreviewCetak').modal('show');
+    return false;
+  }
+
+  function preview_url(url, title) {
+    var sep = url.indexOf('?') !== -1 ? '&' : '?';
+    var url_preview = url + sep + 'preview=1';
+    
+    $('#loadingPreviewCetak').show();
+    $('#iframePreviewCetak').hide().attr('src', url_preview);
+    $('#modalPreviewCetakLabel').html('<i class="fa-solid fa-file-lines" style="color: var(--primary);"></i> ' + (title || 'Pratinjau Dokumen'));
+    $('#modalPreviewCetak').modal('show');
+    return false;
+  }
+
+  function printPreviewIframe() {
+    var iframe = document.getElementById('iframePreviewCetak');
+    if (iframe && iframe.contentWindow) {
+      try {
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+      } catch (e) {
+        console.error('Print iframe error:', e);
+      }
+    }
+  }
+
+  $(document).ready(function() {
+    $('#iframePreviewCetak').on('load', function() {
+      if ($(this).attr('src')) {
+        $('#loadingPreviewCetak').hide();
+        $(this).show();
+      }
+    });
+  });
+  </script>
+
 </div>
 
 <!-- Core Application JS -->
 <script src="<?php echo base_url(); ?>___/js/ajaxFileUpload.js"></script> 
-<script src="<?php echo base_url(); ?>___/js/aplikasi.js"></script> 
+<script src="<?php echo base_url(); ?>___/js/aplikasi.js?v=<?php echo time(); ?>"></script> 
 
 </body>
 </html>

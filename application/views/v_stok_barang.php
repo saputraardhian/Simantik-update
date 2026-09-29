@@ -37,16 +37,17 @@
         </div>
       </div>
       <div class="panel-body" style="padding: 0;">
-        <table class="table table-hover" style="margin-bottom: 0;">
+        <div class="table-responsive" style="display: block; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border: none; margin-bottom: 0;">
+          <table class="table table-hover" style="margin-bottom: 0; width: 100%; min-width: 780px; max-width: none; white-space: nowrap;">
           <thead>
             <tr>
-              <th width="5%" class="ctr">No</th>
-              <th width="15%">Kode Penerimaan</th>
-              <th width="15%">Kode Barang</th>
-              <th width="28%">Nama Barang</th>
-              <th width="12%" class="ctr">Jumlah Diterima</th>
-              <th width="15%">Sumber Penerimaan</th>
-              <th width="10%" class="ctr">Aksi</th>
+              <th style="width: 50px; min-width: 50px;" class="ctr">No</th>
+              <th style="width: 150px; min-width: 150px;">Kode Penerimaan</th>
+              <th style="width: 150px; min-width: 150px;">Kode Barang</th>
+              <th style="min-width: 200px;">Nama Barang</th>
+              <th style="width: 130px; min-width: 130px;" class="ctr">Jumlah Diterima</th>
+              <th style="width: 160px; min-width: 160px;">Sumber Penerimaan</th>
+              <th style="width: 130px; min-width: 130px;" class="ctr">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -97,9 +98,9 @@
               } else {
             ?>
               <tr>
-                <td colspan="7" class="ctr" style="padding: 36px; color: #94a3b8;">
-                  <i class="fa-solid fa-box-open" style="font-size: 36px; margin-bottom: 8px; display: block;"></i>
-                  Belum ada riwayat transaksi penerimaan barang.
+                <td colspan="7" class="ctr" style="padding: 36px; color: #475569;">
+                  <i class="fa-solid fa-box-open" style="font-size: 36px; margin-bottom: 8px; display: block; color: #94a3b8;"></i>
+                  <span style="font-size: 13.5px; font-weight: 500;">Belum ada riwayat transaksi penerimaan barang.</span>
                 </td>
               </tr>
             <?php } ?>
@@ -150,8 +151,8 @@
           </div>
 
           <!-- Table Items Container -->
-          <div style="border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden;">
-            <table class="table" style="margin-bottom: 0;">
+          <div class="table-responsive" style="border: 1px solid #e2e8f0; border-radius: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 0;">
+            <table class="table" style="margin-bottom: 0; min-width: 680px;">
               <thead>
                 <tr>
                   <th width="28%">Nama Barang (Cari ATK)</th>

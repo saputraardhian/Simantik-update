@@ -22,12 +22,7 @@ class Adm extends CI_Controller {
 		$a['sess_level'] = $this->session->userdata('admin_level');
 		$a['sess_user'] = $this->session->userdata('admin_user');
 		$a['sess_nip'] = $this->session->userdata('admin_nip');
-		
 		$a['p']			= "v_main";
-
-		if ($a['sess_level'] == "siswa") {
-			$a['p_mapel']	= $this->db->query("SELECT m_mapel.nama FROM tr_siswa_mapel INNER JOIN m_mapel ON tr_siswa_mapel.id_mapel = m_mapel.id WHERE tr_siswa_mapel.id_siswa = '".$a['sess_konid']."'")->result();
-		}
 		
 		$this->load->view('aaa', $a);
 	}
@@ -153,14 +148,12 @@ class Adm extends CI_Controller {
 		$password2	= md5($password);
 		if($username && $password){
 			
-			if($this->input->post('ppnpn') && $this->input->post('ppnpn')=='ppnpn')
-			{
-				$q_data		= $this->db->query("SELECT * FROM m_pegawai WHERE username = '".$username."' AND password = '".$password2."'");
-				$j_data		= $q_data->num_rows();
-				$a_data		= $q_data->row();
-				
-				$_log		= array();
-				if ($j_data == 1) {
+			$q_data		= $this->db->query("SELECT * FROM m_pegawai WHERE username = '".$username."' AND password = '".$password2."'");
+			$j_data		= $q_data->num_rows();
+			$a_data		= $q_data->row();
+			
+			$_log		= array();
+			if ($j_data == 1) {
 				$data = array(
                     'admin_id' 		=> $a_data->id,
                     'admin_user' 	=> $a_data->username,
@@ -168,19 +161,22 @@ class Adm extends CI_Controller {
                     'admin_nip' 	=> $a_data->nip,
                     'admin_nama' 	=> $a_data->nama,
 					'admin_valid' 	=> true
-                    );
+				);
 				
 				$this->session->set_userdata($data);
 				$_log['log']['status']			= "1";
 				$_log['log']['keterangan']		= "Login berhasil";
-				$_log['log']['detil_admin']		= $this->session->userdata;				
-				}
-				else
-				{
+				$_log['log']['detil_admin']		= $this->session->userdata;
+				$this->j($_log);
+				return;
+			}
+			else if($this->input->post('ppnpn') && $this->input->post('ppnpn')=='ppnpn')
+			{
 				$_log['log']['status']			= "0";
 				$_log['log']['keterangan']		= "Maaf, username dan password tidak terdaftar";
-				$_log['log']['detil_admin']		= null;	
-				}
+				$_log['log']['detil_admin']		= null;
+				$this->j($_log);
+				return;
 			}
 			else
 			{
@@ -593,8 +589,9 @@ class Adm extends CI_Controller {
 		$uri3 = mysql_real_escape_string($this->uri->segment(3));
 		$uri4 = mysql_real_escape_string($this->uri->segment(4));
 
+		$a['id_permintaan'] = $uri3;
 		$a['permintaan_barang'] = $this->db->query("SELECT t.*,b.* from t_permintaan_barang t left join m_barang b on t.kode_jenisbarang=b.kode_jenisbarang AND t.kode_subjenisbarang=b.kode_subjenisbarang where t.id_permintaan='$uri3'")->result();
-		$a['datayangmengajukan'] = $this->db->query("select t.nip_pegawai,p.nama from  t_permintaan_barang t left join m_pegawai p on t.nip_pegawai = p.nip where t.id_permintaan='$uri3' LIMIT 1")->row();
+		$a['datayangmengajukan'] = $this->db->query("SELECT t.nip_pegawai, p.nama, p.id_unitkerja, u.unitkerja FROM t_permintaan_barang t LEFT JOIN m_pegawai p ON t.nip_pegawai = p.nip LEFT JOIN m_unitkerja u ON p.id_unitkerja = u.id_unitkerja WHERE t.id_permintaan='$uri3' LIMIT 1")->row();
 		$a['qtgl_permintaan']=$this->db->query("select date(tgl_permintaan) as tgl_permintaan from t_permintaan_barang where id_permintaan='$uri3' LIMIT 1")->row();
 		$this->load->view("v_cetak_formpermintaan", $a);
 	}

@@ -74,117 +74,77 @@ function OnSelectionChange()
 ?>
 
 
-<div class="row col-md-12">
-  <div class="panel panel-info">
-    <div class="panel-heading">Laporan Permintaan Alat Tulis/Alat Rumah Tangga Kantor
-     <!-- <div class="tombol-kanan">
-        <a class="btn btn-success btn-sm tombol-kanan" href="#" onclick="return m_siswa_e(0);"><i class="glyphicon glyphicon-plus"></i> &nbsp;&nbsp;Tambah</a>
-      </div>-->
-    </div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><i class="fa-solid fa-file-invoice" style="color: var(--primary);"></i> Laporan Permintaan Alat Tulis / Rumah Tangga Kantor</h4>
+      </div>
 	
-	
-	<div class="panel-body">
-        
-        <!-- accordion -->
-        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <table>
-		<tr>
-			<td>Range Waktu Laporan	</td>
-			<td>
-			&nbsp;&nbsp;&nbsp;
-			</td>
-			<td>
-				<input type="text" name="tgl_mulai_laporan" tabindex="5" id="tgl_mulai_laporan" style="width: 200px"  class="form-control" value="<?php echo $uri3; ?>">
-			</td>
-			<td>
-			&nbsp;&nbsp;&nbsp;
-			</td>
-			<td>
-				<input type="text" name="tgl_selesai_laporan" tabindex="5" id="tgl_selesai_laporan" style="width: 200px" class="form-control" value="<?php echo $uri4; ?>">
-			</td>
-		</tr>
-		<tr>
-			<td colspan="5">
-				&nbsp;&nbsp;&nbsp;
-			</td>
-		</tr>
-		<tr>
-			<td>
-			Jenis Laporan
-			</td>
-			<td>
-				&nbsp;&nbsp;&nbsp;
-			</td>
-			<td colspan="3">
-			<?php
-			echo form_dropdown("pilih_laporan", $options_laporan, $uri5, "id='pilih_laporan' class='form-control'")."";
-			?>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="5">
-				&nbsp;&nbsp;&nbsp;
-			</td>
-		</tr>
-		<tr>
-			<td>
-			Pilih Barang
-			</td>
-			<td>
-				&nbsp;&nbsp;&nbsp;
-			</td>
-			<td>
-			<select name="barang" id="barang"  class="form-control" tabindex="5" style="width: 200px">
-						<option value="semua">- Semua Barang -</option>
-                        <?php
-						$query_barang = mysql_query("select * from m_barang");
-						if($uri6 !='semua')
-						{
-							$kode_jenisbarang_terpilih = substr($uri6,0,10);
-							$kode_subjenisbarang_terpilih = substr($uri6,11,6);
-							$query_barang_terpilih =$this->db->query("select nama_barang from m_barang where kode_jenisbarang='$kode_jenisbarang_terpilih' and kode_subjenisbarang='$kode_subjenisbarang_terpilih'")->row();
-							$nama_barang_terpilih = $query_barang_terpilih->nama_barang;
-							$selected_value = $kode_jenisbarang_terpilih.'-'.$kode_subjenisbarang_terpilih ;
-						}
-						else
-						{
-							$selected_value = 'semua';
-							$nama_barang_terpilih ='Semua Barang';
-						}
-		                while($p=mysql_fetch_array($query_barang)){
-						if($p[kode_jenisbarang] == $kode_jenisbarang_terpilih && $p[kode_subjenisbarang]== $kode_subjenisbarang_terpilih)
-						{
-							echo "<option selected value='".$selected_value."'>".$nama_barang_terpilih."</option>\n";
-						}
-						else
-						{
-							echo "<option value='".$p[kode_jenisbarang]."-".$p[kode_subjenisbarang]."'>".$p[nama_barang]."</option>\n";
-						}
-						}
-                        ?>
-            </select>  
-			
-			</td>
-		</tr>
-		<tr>
-			<td colspan="5">
-				&nbsp;&nbsp;&nbsp;
-			</td>
-		</tr>
-		<tr>
-			<td colspan="5">
-			<button class="btn btn-primary btn-sm" tabindex="24" onclick="OnSelectionChange()" > Tampilkan Laporan</button>
-			<a href="<?php echo base_url();?>adm/cetaklaporan/<?php echo $uri3;?>/<?php echo $uri4;?>/<?php echo $uri5;?>/<?php echo $uri6;?>" class="btn btn-danger btn-sm" target="_blank"><i class="glyphicon glyphicon-print"></i> Cetak Laporan</a>
-			</td>
-		</tr>
-		
-		</table>
+      <div class="panel-body" style="padding: 20px;">
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 20px; margin-bottom: 20px;">
+          <div class="row">
+            <div class="col-md-4 col-sm-6" style="margin-bottom: 12px;">
+              <label style="font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px; display: block;">
+                <i class="fa-regular fa-calendar-days" style="color: var(--primary);"></i> Range Waktu Laporan:
+              </label>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <input type="text" name="tgl_mulai_laporan" tabindex="1" id="tgl_mulai_laporan" class="form-control" style="font-weight: 600;" placeholder="Mulai (YYYY-MM-DD)" value="<?php echo $uri3; ?>">
+                <span style="color: #64748b; font-weight: 700;">s/d</span>
+                <input type="text" name="tgl_selesai_laporan" tabindex="2" id="tgl_selesai_laporan" class="form-control" style="font-weight: 600;" placeholder="Selesai (YYYY-MM-DD)" value="<?php echo $uri4; ?>">
+              </div>
+            </div>
 
-		<br>
-		
+            <div class="col-md-4 col-sm-6" style="margin-bottom: 12px;">
+              <label style="font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px; display: block;">
+                <i class="fa-solid fa-layer-group" style="color: var(--primary);"></i> Jenis Laporan:
+              </label>
+              <?php echo form_dropdown("pilih_laporan", $options_laporan, $uri5, "id='pilih_laporan' class='form-control'"); ?>
+            </div>
+
+            <div class="col-md-4 col-sm-12" style="margin-bottom: 12px;">
+              <label style="font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px; display: block;">
+                <i class="fa-solid fa-box" style="color: var(--primary);"></i> Pilih Barang ATK:
+              </label>
+              <select name="barang" id="barang" class="form-control" tabindex="3" style="width: 100%;">
+                <option value="semua">- Semua Barang -</option>
+                <?php
+                  $query_barang = mysql_query("select * from m_barang");
+                  if ($uri6 != 'semua') {
+                    $kode_jenisbarang_terpilih = substr($uri6, 0, 10);
+                    $kode_subjenisbarang_terpilih = substr($uri6, 11, 6);
+                    $query_barang_terpilih = $this->db->query("select nama_barang from m_barang where kode_jenisbarang='$kode_jenisbarang_terpilih' and kode_subjenisbarang='$kode_subjenisbarang_terpilih'")->row();
+                    $nama_barang_terpilih = $query_barang_terpilih ? $query_barang_terpilih->nama_barang : 'Semua Barang';
+                    $selected_value = $kode_jenisbarang_terpilih . '-' . $kode_subjenisbarang_terpilih;
+                  } else {
+                    $selected_value = 'semua';
+                    $nama_barang_terpilih = 'Semua Barang';
+                  }
+                  if ($query_barang) {
+                    while($p = mysql_fetch_array($query_barang)) {
+                      $val = $p['kode_jenisbarang'] . '-' . $p['kode_subjenisbarang'];
+                      $sel = ($val == $selected_value) ? 'selected' : '';
+                      echo "<option value='".$val."' ".$sel.">".$p['nama_barang']."</option>\n";
+                    }
+                  }
+                ?>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap;">
+            <button type="button" class="btn btn-primary btn-sm" tabindex="4" onclick="OnSelectionChange();" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
+              <i class="fa-solid fa-filter"></i> Tampilkan Laporan
+            </button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="return preview_url('<?php echo base_url();?>adm/cetaklaporan/<?php echo $uri3;?>/<?php echo $uri4;?>/<?php echo $uri5;?>/<?php echo $uri6;?>', 'Pratinjau Laporan Penerimaan/Pengeluaran');" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
+              <i class="fa-solid fa-print"></i> Cetak Laporan
+            </button>
+          </div>
+        </div>
+
 		<?php 
 					if (empty($datalistatk)) {
-						echo "<table><tr><td colspan='5'  style='text-align: center; font-weight: bold'>--Laporan Kosong--</td></tr></table>";
+						echo "<div style='text-align: center; padding: 40px 20px; color: #475569; background: #ffffff; border-radius: 10px; border: 1px dashed #cbd5e1; margin-bottom: 20px;'><i class='fa-solid fa-file-circle-xmark' style='font-size: 36px; color: #94a3b8; margin-bottom: 10px; display: block;'></i><strong style='font-size: 14px;'>Tidak Ada Data Laporan</strong><p style='margin: 4px 0 0; font-size: 12.5px; color: #64748b;'>Silakan tentukan range tanggal atau komoditas barang yang ingin ditampilkan.</p></div>";
 					} else {
 						
 					foreach($datalistatk as $atk)
@@ -242,54 +202,60 @@ function OnSelectionChange()
 						<div class="subpage">
 						<p><?php echo 'Nama Barang : '. $atk->nama_barang;?></p>
 						
-							<table class="table table-bordered table-hover">
+							<div class="table-responsive" style="display: block; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border: none; margin-bottom: 10px;">
+							<table class="table table-bordered table-hover" style="margin-bottom: 0; width: 100%; min-width: 680px; max-width: none; white-space: nowrap;">
+								<thead>
 								<tr>
-								<th align="center" width="5%">No.</th>
-								<th align="center" width="10%">Tanggal</th>
-								<th align="center" width="30%">Uraian Pengeluaran/Penerimaan</th>
-								<th align="center" width="15%">Harga</th>
-								<th align="center" align="center" width="10%">Masuk</th>
-								<th align="center" width="10%">Keluar</th>
-								<th align="center" width="10%">Stok Barang</th>
+								<th style="width: 50px; min-width: 50px;" class="ctr">No.</th>
+								<th style="width: 120px; min-width: 120px;" class="ctr">Tanggal</th>
+								<th style="min-width: 250px;">Uraian Pengeluaran/Penerimaan</th>
+								<th style="width: 130px; min-width: 130px;" class="ctr">Harga</th>
+								<th style="width: 90px; min-width: 90px;" class="ctr">Masuk</th>
+								<th style="width: 90px; min-width: 90px;" class="ctr">Keluar</th>
+								<th style="width: 110px; min-width: 110px;" class="ctr">Stok Barang</th>
 								</tr>
+								</thead>
+								<tbody>
 							<?php
 							$no=1;
 							foreach ($datalaporan as $b) {
 							?>
 								<tr>
-								<td  align="center"><?php echo $no;?></td>
-								<td  align="left"><?php echo tgl_jam_sql (substr($b->tgl,0,10));?></td>
-								<td  align="left"><?php echo $b->uraian;?></td>
-								<td  align="right"><?php echo $b->harga;?></td>
+								<td class="ctr"><?php echo $no;?></td>
+								<td class="ctr"><?php echo tgl_jam_sql (substr($b->tgl,0,10));?></td>
+								<td><?php echo $b->uraian;?></td>
+								<td style="text-align: right;"><?php echo $b->harga;?></td>
 								<?php
 								if ($b->flag == '2')
 								{?>
-									<td  align="center"><?php echo $b->jumlah;?></td>							
+									<td class="ctr" style="font-weight: 700; color: #16a34a;"><?php echo $b->jumlah;?></td>							
 								<?php
 								}
 								else
 								{?>
-								<td  align="center">&nbsp;</td>
+								<td class="ctr">-</td>
 								<?php
 								}
 								if ($b->flag == '1')
 								{?>
-									<td  align="center"><?php echo $b->jumlah;?></td>							
+									<td class="ctr" style="font-weight: 700; color: #dc2626;"><?php echo $b->jumlah;?></td>							
 								<?php
 								}
 								else
 								{?>
-								<td  align="center">&nbsp;</td>
+								<td class="ctr">-</td>
 								<?php
 								}
 								?>
-								<td  align="center"><?php echo $b->stok;?></td>
+								<td class="ctr" style="font-weight: 700; color: #0284c7;"><?php echo $b->stok;?></td>
 								</tr>
 								<?php
 								$no++;
 							}
 							?>
+								</tbody>
 							</table>
+							</div>
 						</div>
 					</div>
 					</div>

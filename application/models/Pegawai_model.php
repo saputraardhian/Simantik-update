@@ -13,6 +13,9 @@ class Pegawai_model extends CI_Model
 
     function login($username, $password)
     {
+        if (!$this->db->table_exists($this->table)) {
+            return false;
+        }
         $this->db->where('email', $username.'@bps.go.id');
         $row = $this->db->get($this->table)->row();
         if($row && (sha1($row->salt.$password)==$row->hash || hash('sha512', $row->salt.$password)==$row->hash )){
@@ -22,6 +25,9 @@ class Pegawai_model extends CI_Model
 
     function set_login($username, $password)
     {
+        if (!$this->db->table_exists($this->table)) {
+            return false;
+        }
         $this->db->where('email', $username.'@bps.go.id');
         $row = $this->db->get($this->table)->row();
         if($row){

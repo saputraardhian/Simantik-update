@@ -25,48 +25,23 @@
 
 body.login-canvas {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  background-color: #0f172a;
+  background-color: #f1f5f9;
   background-image: 
-    radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.25) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.2) 0px, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(14, 165, 233, 0.12) 0px, transparent 60%);
+    radial-gradient(#cbd5e1 0.75px, transparent 0.75px),
+    radial-gradient(#cbd5e1 0.75px, #f1f5f9 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
   min-height: 100vh;
   margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 30px 16px;
+  padding: 32px 16px;
   position: relative;
-  overflow-x: hidden;
 }
 
-/* Subtle glowing background orbs */
-.orb-glow-1 {
-  position: absolute;
-  top: -100px;
-  left: -100px;
-  width: 450px;
-  height: 450px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.18) 0%, rgba(37, 99, 235, 0) 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.orb-glow-2 {
-  position: absolute;
-  bottom: -100px;
-  right: -100px;
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(14, 165, 233, 0) 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Main Login Container Card */
+/* Card Container */
 .login-card-container {
   position: relative;
   z-index: 1;
@@ -76,49 +51,62 @@ body.login-canvas {
 
 .login-card {
   background: #ffffff;
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  border-radius: 24px;
-  padding: 40px 36px 36px;
-  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1);
-  transition: all 0.25s ease;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 36px 32px 32px;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
 }
 
 /* Header & Logo */
 .login-header {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .login-logo-wrapper {
-  width: 72px;
-  height: 72px;
-  margin: 0 auto 16px;
-  border-radius: 20px;
-  background: #ffffff;
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 14px;
+  border-radius: 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 12px 28px -6px rgba(37, 99, 235, 0.22), 0 0 0 1px rgba(37, 99, 235, 0.1);
-  padding: 8px;
+  padding: 10px;
 }
 
 .login-logo-wrapper img {
-  width: 54px;
-  height: 54px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
 }
 
+.login-institution-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #1e40af;
+  background: #dbeafe;
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+
 .login-title {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 800;
   color: #0f172a;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
   margin: 0 0 6px;
 }
 
 .login-subtitle {
-  font-size: 13.5px;
-  color: #64748b;
+  font-size: 13px;
+  color: #475569;
   margin: 0;
   font-weight: 500;
   line-height: 1.45;
@@ -126,47 +114,45 @@ body.login-canvas {
 
 /* Alert Notification */
 .login-alert-box {
-  border-radius: 12px;
+  border-radius: 10px;
   font-size: 13px;
   font-weight: 500;
-  padding: 12px 16px;
-  margin-bottom: 22px;
+  padding: 12px 14px;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
   gap: 10px;
-  animation: slideInDown 0.25s ease forwards;
 }
 
 .login-alert-danger {
   background-color: #fef2f2;
   border: 1px solid #fecaca;
-  color: #b91c1c;
+  color: #991b1b;
 }
 
 .login-alert-info {
   background-color: #eff6ff;
   border: 1px solid #bfdbfe;
-  color: #1d4ed8;
+  color: #1e40af;
 }
 
 .login-alert-success {
   background-color: #ecfdf5;
   border: 1px solid #a7f3d0;
-  color: #047857;
+  color: #065f46;
 }
 
 /* Form Fields */
 .form-field-group {
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .field-label {
   display: block;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   color: #334155;
-  margin-bottom: 8px;
-  letter-spacing: -0.01em;
+  margin-bottom: 6px;
 }
 
 .input-container {
@@ -177,45 +163,39 @@ body.login-canvas {
 
 .input-icon-left {
   position: absolute;
-  left: 15px;
-  color: #94a3b8;
-  font-size: 15px;
+  left: 14px;
+  color: #64748b;
+  font-size: 14px;
   pointer-events: none;
-  transition: color 0.15s ease;
   z-index: 2;
 }
 
 .modern-input {
   width: 100%;
-  height: 48px;
-  background: #f8fafc;
+  height: 44px;
+  background: #ffffff;
   border: 1px solid #cbd5e1;
-  border-radius: 12px;
-  padding: 0 46px 0 44px;
-  font-size: 14px;
+  border-radius: 10px;
+  padding: 0 42px 0 40px;
+  font-size: 13.5px;
   color: #0f172a;
   font-weight: 500;
-  transition: all 0.2s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .modern-input:focus {
-  background: #ffffff;
   border-color: #2563eb;
   outline: none;
-  box-shadow: 0 0 0 3.5px rgba(37, 99, 235, 0.15);
-}
-
-.modern-input:focus ~ .input-icon-left {
-  color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .toggle-password-btn {
   position: absolute;
-  right: 12px;
+  right: 8px;
   background: none;
   border: none;
-  color: #94a3b8;
-  font-size: 15px;
+  color: #64748b;
+  font-size: 14px;
   cursor: pointer;
   padding: 6px 8px;
   display: flex;
@@ -227,83 +207,64 @@ body.login-canvas {
 }
 
 .toggle-password-btn:hover {
-  color: #1e293b;
+  color: #0f172a;
 }
 
 /* Submit Action Button */
 .btn-login-submit {
   width: 100%;
-  height: 50px;
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  height: 44px;
+  background: #1d4ed8;
   color: #ffffff;
   border: none;
-  border-radius: 12px;
-  font-size: 14.5px;
+  border-radius: 10px;
+  font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 10px 22px -4px rgba(37, 99, 235, 0.4);
-  transition: all 0.2s ease;
-  margin-top: 12px;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+  margin-top: 10px;
 }
 
 .btn-login-submit:hover {
-  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
-  box-shadow: 0 12px 26px -4px rgba(37, 99, 235, 0.5);
-  transform: translateY(-1px);
+  background: #1e40af;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.25);
 }
 
-.btn-login-submit:active {
-  transform: translateY(0);
+.btn-login-submit:focus-visible {
+  outline: 2px solid #1d4ed8;
+  outline-offset: 2px;
 }
 
 .btn-login-submit:disabled {
   opacity: 0.75;
   cursor: not-allowed;
-  transform: none;
 }
 
 /* Footer Section */
 .login-footer {
   text-align: center;
-  margin-top: 24px;
+  margin-top: 20px;
   font-size: 12.5px;
-  color: #94a3b8;
-  position: relative;
-  z-index: 1;
+  color: #475569;
+  font-weight: 500;
 }
 
 .login-footer a {
-  color: #60a5fa;
-  font-weight: 600;
+  color: #1d4ed8;
+  font-weight: 700;
   text-decoration: none;
-  transition: color 0.15s ease;
 }
 
 .login-footer a:hover {
-  color: #93c5fd;
   text-decoration: underline;
-}
-
-@keyframes slideInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 </style>
 </head>
 <body class="login-canvas">
-
-<div class="orb-glow-1"></div>
-<div class="orb-glow-2"></div>
 
 <div class="login-card-container">
   <div class="login-card">
@@ -311,7 +272,10 @@ body.login-canvas {
     <!-- Brand Header -->
     <div class="login-header">
       <div class="login-logo-wrapper">
-        <img src="<?php echo base_url(); ?>___/img/logo-bps.svg" alt="Logo BPS" width="54" height="54" />
+        <img src="<?php echo base_url(); ?>___/img/logo-bps.svg" alt="Logo BPS" width="48" height="48" />
+      </div>
+      <div class="login-institution-badge">
+        <i class="fa-solid fa-building-columns"></i> BPS PROVINSI JAWA TENGAH
       </div>
       <h1 class="login-title">SIMANTIK</h1>
       <p class="login-subtitle">Sistem Informasi Permintaan ATK / ART Kantor</p>
@@ -353,7 +317,7 @@ body.login-canvas {
 
   <!-- Footer -->
   <div class="login-footer">
-    &copy; <?php echo date('Y'); ?> <a href="<?php echo base_url(); ?>adm">SIMANTIK</a> &bull; BPS Provinsi Jawa Tengah
+    &copy; <?php echo date('Y'); ?> <a href="<?php echo base_url(); ?>adm">SIMANTIK</a> &bull; Badan Pusat Statistik Provinsi Jawa Tengah
   </div>
 </div>
 

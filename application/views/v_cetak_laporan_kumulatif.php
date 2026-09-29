@@ -5,10 +5,12 @@ $uri5 = $this->uri->segment(5);
 $uri6 = $this->uri->segment(6);
 ?>
 
+<?php if (!isset($_GET['preview'])): ?>
 <script type="text/javascript">
 	window.print();
 	window.onfocus=function(){ window.close();}
 </script>
+<?php endif; ?>
 
 <style>
 body {
@@ -48,12 +50,6 @@ body {
 
 
 </style>
-
-
-<script type="text/javascript">
-	window.print();
-	window.onfocus=function(){ window.close();}
-</script>
 <?php
 function tgl_jam_sql ($tgl) {
 	$pc_satu	= explode(" ", $tgl);
